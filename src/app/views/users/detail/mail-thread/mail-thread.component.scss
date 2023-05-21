@@ -1,0 +1,98 @@
+.accordians {
+    width: 100% !important;
+
+    // .mat-accordion .mat-expansion-panel {
+    //     // margin-bottom: 10px;
+    // }
+}
+
+::ng-deep mat-expansion-panel-header {
+    height: 65px !important;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #e0e0e0;
+    margin-bottom: 9px;
+}
+
+.mat-expanded .mat-expansion-panel-header {
+     margin-bottom: 0rem; 
+}
+
+// mat-list mat-list-item h3{
+//    justify-content: space-between !important;
+// }
+
+.buttons {
+    display: flex;
+    margin: 5px 0px;
+    margin-left: 30px !important;
+
+    .cancel-btn {
+        margin-left: 10px !important;
+    }
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 120px;
+    width: 100% !important;
+    height: 120px;
+}
+
+:host ::ng-deep .ck-editor {
+    width: 100% !important;
+}
+
+.download-box {
+    border: 1px solid gray;
+    padding: 0px 0px 0px 21px;
+    border-radius: 5px;
+    margin: 14px 0px 0px 0px;
+}
+
+p {
+    margin: 0px 16px;
+}
+
+::ng-deep mat-list mat-list-item {
+    height: 30px !important;
+}
+
+.tag {
+    background: #f5f0f0;
+    padding: 4px 10px;
+    border-radius: 15px;
+}
+.name-head {
+    display: contents;
+}
+
+h3 {
+    font-size: 14px;
+}
+
+#reply-text{
+    padding: 0px 20px !important;
+}
+
+#select-file{
+    padding: 20px 30px !important;
+}
+
+#attachment-icon{
+    transform: rotate(90deg) !important;
+}
+// .remove-mailicon{
+//     display: none;
+// }
+
+// .with-editor {   
+//     height: 40vh;
+// }
+// .without-editor {
+//     height: 20vh;
+// }
+
+
+// .high-text {
+//     font-weight: bold;
+// }

@@ -1,0 +1,128 @@
+<table class="w-100" mat-table *ngIf="inventories" [dataSource]="inventories" matSortActive={{sortKey}} matSortDirection={{sortDirection}} matSort (matSortChange)="sortData($event)">
+    <ng-container matColumnDef="srNo" sticky>
+        <mat-header-cell class="cell-srno" *matHeaderCellDef
+            >Sr #</mat-header-cell
+        >
+        <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+            <a href="javascript:;">
+                {{ offset + i }}
+            </a>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dealer">
+        <mat-header-cell class="cell-dealer cell-metric" *matHeaderCellDef mat-sort-header
+            >Dealer</mat-header-cell
+        >
+        <mat-cell class="cell-dealer cell-metric" *matCellDef="let item">
+            {{ item.dealer}}
+        </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="stock_no">
+        <mat-header-cell class="cell-stock_no cell-metric" *matHeaderCellDef mat-sort-header
+            >Stock #</mat-header-cell
+        >
+        <mat-cell class="cell-stock_no cell-metric" *matCellDef="let item">
+            {{ item.stock_no}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+        <mat-header-cell class="cell-year cell-metric" *matHeaderCellDef mat-sort-header
+            >Year</mat-header-cell
+        >
+        <mat-cell class="cell-year cell-metric" *matCellDef="let item">
+            {{ item.year}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="make">
+        <mat-header-cell class="cell-make cell-metric" *matHeaderCellDef mat-sort-header
+            >Make</mat-header-cell
+        >
+        <mat-cell class="cell-make cell-metric" *matCellDef="let item">
+            {{ item.make}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+        <mat-header-cell class="cell-model cell-metric" *matHeaderCellDef mat-sort-header
+            >Model</mat-header-cell
+        >
+        <mat-cell class="cell-model cell-metric" *matCellDef="let item">
+            {{ item.model }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="desc">
+        <mat-header-cell class="cell-desc cell-metric" *matHeaderCellDef mat-sort-header
+            >Description</mat-header-cell
+        >
+        <mat-cell class="cell-desc cell-metric" *matCellDef="let item">
+            {{ item.desc }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="exterior_color">
+        <mat-header-cell class="cell-exterior_color cell-metric" *matHeaderCellDef mat-sort-header
+            >Exterior Color</mat-header-cell
+        >
+        <mat-cell class="cell-exterior_color cell-metric" *matCellDef="let item">
+            {{ item.exterior_color }}
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="interior_color">
+        <mat-header-cell class="cell-interior_color cell-metric" *matHeaderCellDef mat-sort-header
+            >Interior Color</mat-header-cell
+        >
+        <mat-cell class="cell-interior_color cell-metric" *matCellDef="let item">
+            {{ item.interior_color }}
+        </mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="option">
+        <mat-header-cell class="cell-option cell-metric" *matHeaderCellDef mat-sort-header
+            >Options/Packages</mat-header-cell
+        >
+        <mat-cell class="cell-option cell-metric" *matCellDef="let item">
+        </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="model_number">
+        <mat-header-cell class="cell-model_number cell-metric" *matHeaderCellDef mat-sort-header
+            >Model #</mat-header-cell
+        >
+        <mat-cell class="cell-model_number cell-metric" *matCellDef="let item">
+            {{ item.model_number }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="invoice">
+        <mat-header-cell class="cell-invoice cell-metric" *matHeaderCellDef mat-sort-header
+            >Cost</mat-header-cell
+        >
+        <mat-cell class="cell-invoice cell-metric" *matCellDef="let item">
+            {{ item.invoice | currency }}
+        </mat-cell>
+    </ng-container>
+
+  
+    <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-actions" *matHeaderCellDef
+            >Actions</mat-header-cell
+        >
+        <mat-cell class="cell-actions" *matCellDef="let item">
+            <button mat-icon-button routerLink="./{{item.id}}"><mat-icon>remove_red_eye</mat-icon></button>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row
+        *matHeaderRowDef="columnHeaders; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders" routerLink="./{{row.id}}"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && inventories.length === 0">No Records Found!</div>
+  

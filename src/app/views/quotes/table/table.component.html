@@ -1,0 +1,109 @@
+<table class="w-100" mat-table *ngIf="quotes" [dataSource]="quotes" matSortActive={{sortKey}} matSortDirection={{sortDirection}} matSort (matSortChange)="sortData($event)">
+    
+    <ng-container matColumnDef="id">
+        <mat-header-cell class="cell-id cell-metric" *matHeaderCellDef mat-sort-header
+            >Request #</mat-header-cell
+        >
+        <mat-cell class="cell-id cell-metric" *matCellDef="let item">
+            {{ item.request_id}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="stock_no">
+        <mat-header-cell class="cell-stock_no cell-metric" *matHeaderCellDef mat-sort-header
+            >Stock #</mat-header-cell
+        >
+        <mat-cell class="cell-stock_no cell-metric" *matCellDef="let item">
+            {{ item.stock_no}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="first_name">
+        <mat-header-cell class="cell-first_name cell-metric" *matHeaderCellDef mat-sort-header
+            >First Name</mat-header-cell
+        >
+        <mat-cell class="cell-first_name cell-metric" *matCellDef="let item">
+            {{ item.first_name}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+        <mat-header-cell class="cell-last_name cell-metric" *matHeaderCellDef mat-sort-header
+            >Last Name</mat-header-cell
+        >
+        <mat-cell class="cell-last_name cell-metric" *matCellDef="let item">
+            {{ item.last_name}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+        <mat-header-cell class="cell-year cell-metric" *matHeaderCellDef mat-sort-header
+            >Year</mat-header-cell
+        >
+        <mat-cell class="cell-year cell-metric" *matCellDef="let item">
+            {{ item.year}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="make">
+        <mat-header-cell class="cell-make cell-metric" *matHeaderCellDef mat-sort-header
+            >Make</mat-header-cell
+        >
+        <mat-cell class="cell-make cell-metric" *matCellDef="let item">
+            {{ item.make}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+        <mat-header-cell class="cell-model cell-metric" *matHeaderCellDef mat-sort-header
+            >Model</mat-header-cell
+        >
+        <mat-cell class="cell-model cell-metric" *matCellDef="let item">
+            {{ item.model}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="drive_off">
+        <mat-header-cell class="cell-drive_off cell-metric" *matHeaderCellDef mat-sort-header
+            >Drive Off</mat-header-cell
+        >
+        <mat-cell class="cell-drive_off cell-metric" *matCellDef="let item">
+            {{ item.drive_off ? '$ ' :''}}{{ item.drive_off | number}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell class="cell-created_at cell-metric" *matHeaderCellDef mat-sort-header
+            >Created At</mat-header-cell
+        >
+        <mat-cell class="cell-created_at cell-metric" *matCellDef="let item">
+            {{ item.created_at | date:'MM-dd-yyy hh:mm a' }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updated_at">
+        <mat-header-cell class="cell-updated_at cell-metric" *matHeaderCellDef mat-sort-header
+            >Updated At</mat-header-cell
+        >
+        <mat-cell class="cell-updated_at cell-metric" *matCellDef="let item">
+            {{ item.updated_at | date:'MM-dd-yyy hh:mm a' }}
+        </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-actions" *matHeaderCellDef
+            >Actions</mat-header-cell
+        >
+        <mat-cell class="cell-actions" *matCellDef="let item" (click)="$event.stopPropagation();">
+            <button mat-icon-button routerLink="./{{item.id}}/edit"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button (click)="onDelete(item, i)"><mat-icon>delete</mat-icon></button>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row
+        *matHeaderRowDef="columnHeaders; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders" routerLink="./{{row.id}}/edit"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && quotes.length === 0">No Records Found!</div>
+  

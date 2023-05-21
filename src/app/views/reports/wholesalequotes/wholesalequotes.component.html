@@ -1,0 +1,49 @@
+
+<mat-card>
+
+    <div class="header-content">
+        <div class="w-100">
+          <mat-card-title>Wholesale Quotes</mat-card-title>
+        </div>
+        <div class="w-100 btn-position" *ngIf="total">
+            <h3>Total : {{total | number : '1.0'}}</h3>
+        </div>
+        <div>
+          <button mat-raised-button color="primary" matTooltip="Export" (click)="onExport()"><mat-icon>get_app</mat-icon>
+          </button>
+      </div>
+    </div>
+       
+    <mat-card-content *ngIf="wholesaleQuoteReport.length">
+        <div style="display: block;">
+            <canvas baseChart 
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [chartType]="barChartType">
+            </canvas>
+          </div>
+     </mat-card-content>
+     <mat-card-actions>
+       <button mat-button class="pr-0 mt-20">
+           <app-date-filter (selectedDates)="getSelectedDates($event)" (selectedViewType)="changeViewType($event)"></app-date-filter>
+       </button>
+       <button mat-button class="ml-0 pl-0 move-right">
+           <mat-form-field class="mr-1">
+               <mat-label>Select source</mat-label>
+               <mat-select multiple [(value)]="selectedSource"
+               (selectionChange)="onSourceChange()">
+                   <mat-option *ngFor="let source of sources" [value]="source.id">{{source.value}}</mat-option>
+                </mat-select>
+           </mat-form-field>
+           <mat-form-field class="mr-1">
+            <mat-label>Select Wholesale Salesperson</mat-label>
+            <mat-select multiple [(value)]="selectedOwner"
+            (selectionChange)="onContactOwnerChange()">
+            <mat-option *ngFor="let owner of contactOwnersList" [value]="owner.id">{{owner.first_name | titlecase}} {{owner.last_name | titlecase}}</mat-option>
+             </mat-select>
+          </mat-form-field>
+       </button>
+     </mat-card-actions>
+   </mat-card>

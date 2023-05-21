@@ -1,0 +1,106 @@
+<mat-card>
+    <mat-card-title class="">
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+            <div fxFlex="50" class="pr-1 text-text">
+                <div class="card-title-text">Wholesale Quote</div>
+            </div>
+            <div fxFlex="50" class="pr-1 text-right">
+                <button mat-raised-button class="mr-05" color="primary" (click)="onAddWholesaleQuote()">{{"ADD" |
+                    translate }} {{"NEW" | translate }}</button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content class="mt-1">
+        <mat-table [dataSource]="dataSourceWholesale" matSort  (matSortChange)="sortData($event)">
+            <ng-container matColumnDef="id">
+                <mat-header-cell class="cell-id cell-metric" *matHeaderCellDef mat-sort-header>Id #
+                </mat-header-cell>
+                <mat-cell class="cell-id cell-metric" *matCellDef="let item">
+                    {{ item.id}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="wholesale_stock_no">
+                <mat-header-cell class="cell-stock_no cell-metric" *matHeaderCellDef mat-sort-header>WholeStock #
+                </mat-header-cell>
+                <mat-cell class="cell-stock_no cell-metric" *matCellDef="let item">
+                    {{ item.wholesale_stock_no}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="client_name">
+                <mat-header-cell class="cell-client_name cell-metric" *matHeaderCellDef mat-sort-header>Name
+                </mat-header-cell>
+                <mat-cell class="cell-client_name cell-metric" *matCellDef="let item">
+                    {{ item.client_name}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+                <mat-header-cell class="cell-year cell-metric" *matHeaderCellDef mat-sort-header>Year
+                </mat-header-cell>
+                <mat-cell class="cell-year cell-metric" *matCellDef="let item">
+                    {{ item.year}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="make">
+                <mat-header-cell class="cell-make cell-metric" *matHeaderCellDef mat-sort-header>Make
+                </mat-header-cell>
+                <mat-cell class="cell-make cell-metric" *matCellDef="let item">
+                    {{ item.make}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="model">
+                <mat-header-cell class="cell-model cell-metric" *matHeaderCellDef mat-sort-header>Model
+                </mat-header-cell>
+                <mat-cell class="cell-model cell-metric" *matCellDef="let item">
+                    {{ item.model}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="created_at">
+                <mat-header-cell class="cell-created_at cell-metric" *matHeaderCellDef mat-sort-header>Created At
+                </mat-header-cell>
+                <mat-cell class="cell-created_at cell-metric" *matCellDef="let item">
+                    {{ item.created_at | date:'MM-dd-yyy hh:mm a' }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="updated_at">
+                <mat-header-cell class="cell-updated_at cell-metric" *matHeaderCellDef mat-sort-header>Updated At
+                </mat-header-cell>
+                <mat-cell class="cell-updated_at cell-metric" *matCellDef="let item">
+                    {{ item.updated_at | date:'MM-dd-yyy hh:mm a' }}
+                </mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell class="cell-actions" *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell class="cell-actions" *matCellDef="let item" (click)="$event.stopPropagation();">
+                    <button mat-icon-button routerLink="/wholesalequote/{{item.id}}/edit">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="onWholesaleQuoteDelete(item, i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="columnHeadersWholesale; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnHeadersWholesale"
+                routerLink="/wholesalequote/{{row.id}}/edit"></mat-row>
+        </mat-table>
+        <div class="text-center margin-333"
+            *ngIf="(didFetch$ | async) && (wholesaleQuotes && wholesaleQuotes.length === 0)">No Records
+            Found!</div>
+
+        <mat-paginator #TableWholesalePaginator="matPaginator" [length]="dataSourceWholesale.length" [pageSize]="dataSourceWholesale.pageSize"
+            [pageIndex]="dataSourceWholesale.pageIndex" [pageSizeOptions]="[10,20, 50, 100]"
+            [showFirstLastButtons]="true" (page)="onWholesalePaginateChange($event)">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>

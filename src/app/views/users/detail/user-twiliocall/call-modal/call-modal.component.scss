@@ -1,0 +1,37 @@
+.text-center{
+    text-align: center;
+    font-size: 25px;
+}
+.pd-15{
+    padding: 15px;
+}
+.huangup-div{
+text-align: center;
+    button{
+        margin-left: 10px;
+        margin-right: 13px;
+        border-radius: 50%;
+        background-color: #dddfe2;
+        height: 50px;
+    }
+    .hangup{
+        color: #fff !important;
+        background-color: #ff000082;
+    }
+
+    .connect{
+        color: #fff !important;
+        background-color: #14a800;
+    }
+    .accept{
+        font-weight: bold;
+        color: green;
+    }
+
+    .reject{
+        font-weight: bold;
+        color: red;
+    }
+    
+
+}

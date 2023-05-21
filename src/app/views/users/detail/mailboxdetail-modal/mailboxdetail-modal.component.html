@@ -1,0 +1,43 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+<mat-card-content class="mt-1">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width" floatLabel="always">
+            <mat-label>To</mat-label>
+            <input matInput type="text" name="first_name" [value]="mail?.to"  disabled />
+        </mat-form-field>
+    </div>
+    <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width" floatLabel="always">
+            <mat-label>Subject</mat-label>
+            <input matInput type="text" name="last_name" [value]="mail?.subject"  disabled />
+        </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-label>Message</mat-label>
+      <div [innerHTML]="mail?.msg"></div>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" *ngIf="mail.attachment">
+    <hr>
+    <br>
+    <div fxFlex="100" class="pr-1">
+      <mat-label>Attached File</mat-label>
+        
+      <hr>
+      <br>
+      <span>{{ mail.file_name }}</span><br>
+      <!-- <a (click)="onClickDownloadPdf(mail.id)"><mat-icon> attachment</mat-icon></a> -->
+      <a (click)="onClickDownloadPdf(mail.id)"><mat-icon>attachment</mat-icon></a>
+    </div>
+  </div>
+
+  <div class="footer-buttons">
+    <button mat-button color="warn" type="button" (click)="dialogRef.close(true)">Cancel</button>
+  </div>
+
+</mat-card-content>

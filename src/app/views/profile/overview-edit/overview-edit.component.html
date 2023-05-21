@@ -1,0 +1,91 @@
+
+<mat-card class="profile-sidebar mb-1" *ngIf="userProfile">
+    <form [formGroup]="profileForm"  (ngSubmit)="onSubmit()" autocomplete="off">
+        <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <div fxFlex="100"  class="pr-1 pb-1">
+                <mat-form-field class="full-width">
+                    <input
+                    matInput
+                    name="firstname"
+                    placeholder="First Name"
+                    [formControl]="profileForm.controls['firstname']"
+                    >
+                </mat-form-field>
+            </div>
+            <div fxFlex="100"  class="pr-1 pb-1">
+                <mat-form-field class="full-width">
+                    <input
+                    matInput
+                    name="lastname"
+                    placeholder="Last Name"
+                    [formControl]="profileForm.controls['lastname']"
+                >
+                </mat-form-field>
+            </div>
+            <div fxFlex="100"  class="pr-1 pb-1">
+                <mat-form-field class="full-width">
+                    <input
+                    matInput
+                    name="email"
+                    placeholder="Email"
+                    disabled
+                    value="{{userProfile.email}}">
+                </mat-form-field>
+            </div>
+            
+            <div fxFlex="100"  class="pr-1 pb-1">
+                <mat-form-field class="full-width">
+                    <input
+                    matInput
+                    name="name"
+                    placeholder="Location"
+                    disabled
+                    [value]="getLocation()">
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="100"  class="pr-1 pb-1">
+                <mat-form-field class="full-width">
+                    <input
+                    matInput
+                    name="name"
+                    placeholder="Role"
+                    disabled
+                    [value]="getRole()">
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="100"  class="pr-1 pb-1">
+                <mat-form-field class="full-width">
+                    <input 
+                    autocomplete="new-password" 
+                    type="password"
+                    name="password"
+                    matInput
+                    [formControl]="profileForm.controls['password']"
+                    placeholder="Password">
+                    <mat-hint align="start"><strong>Leave it blank if you change password</strong> </mat-hint>
+                </mat-form-field>
+                <small *ngIf="profileForm.controls['password'].hasError('minlength')" class="form-error-msg">The password must be at least 6 characters.</small>
+            </div>
+
+            <div fxFlex="100"  class="pr-1 pb-1">
+                <mat-form-field class="full-width">
+                    <input
+                    autocomplete="new-confirm-password" 
+                    type="password"
+                    name="confirmPassword"
+                    matInput
+                    [formControl]="profileForm.controls['confirmPassword']"
+                    placeholder="Confirm Password">
+                </mat-form-field>
+                <small *ngIf="profileForm.controls['confirmPassword'].hasError('equalTo')" class="form-error-msg">Passwords do not match.</small>
+            </div>
+
+            <div class="full-width" fxLayoutAlign="space-between center">
+                <a mat-raised-button color="primary" [routerLink]="['/profile/overview']">Back</a>
+                <button mat-raised-button color="primary" [disabled]="profileForm.invalid">Update</button>
+            </div>
+        </div>
+    </form>
+</mat-card>

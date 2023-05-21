@@ -1,0 +1,164 @@
+<h1 matDialogTitle>{{data.title }}</h1>
+<form [formGroup]="itemForm">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Action</mat-label>
+        <mat-select formControlName="actioname" (selectionChange)="onActionchange($event.value)">
+          <mat-option *ngFor="let action of actionList" [value]="action.id">
+            {{action.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- Delay Section Start -->
+  <span *ngIf="actionValue == '1' ">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-label>Delay Action</mat-label>
+          <mat-select formControlName="delayaction" (selectionChange)="onDelaychange($event.value)">
+            <mat-option *ngFor="let delay of delayList" [value]="delay.delay_id">
+              {{delay.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Delay for a set amount of time section  -->
+    <span *ngIf="delayValue == '1' ">
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-label>Days</mat-label>
+            <input matInput type="number" formControlName="days" placeholder="Days">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-label>Hours</mat-label>
+            <input matInput type="number" formControlName="hours" placeholder="Hours">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-label>Minutes</mat-label>
+            <input matInput type="number" formControlName="minutes" placeholder="Minutes">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-label>Seconds</mat-label>
+            <input matInput type="number" formControlName="seconds" placeholder="Seconds">
+          </mat-form-field>
+        </div>
+      </div>
+    </span>
+    <!-- Delay until a day or time  -->
+    <span *ngIf="delayValue == '2' ">
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-label>Date</mat-label>
+            <input matInput type="date" formControlName="date" placeholder="Date">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <mat-label>Time of day</mat-label>
+            <input matInput type="time" formControlName="timeofday" placeholder="Time of day">
+          </mat-form-field>
+        </div>
+
+      </div>
+    </span>
+  </span>
+  <!-- Delay Section End -->
+
+  <!-- Branch Section Start -->
+  <span *ngIf="actionValue == '2' ">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-label>Branch Name</mat-label>
+          <input matInput type="text" formControlName="branch_name" placeholder="Add Value">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-label>Type</mat-label>
+          <mat-select formControlName="type" (selectionChange)="onTypechange($event.value)">
+            <mat-option *ngFor="let type of typeList" [value]="type.type_id">
+              {{type.type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1" *ngIf="propertyList">
+        <mat-form-field class="full-width">
+          <mat-label>Property</mat-label>
+          <mat-select formControlName="property" (selectionChange)="onPropertychange($event.value)">
+            <mat-option *ngFor="let property of propertyList" [value]="property.property_id">
+              {{property.property_name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    <!-- show property Conditons -->
+      <div fxFlex="50" class="pr-1" *ngIf="proertyValue">
+        <mat-form-field class="full-width">
+          <mat-label>Conditions</mat-label>
+          <mat-select formControlName="condition" (selectionChange)="onConditionchange($event.value)">
+            <mat-option *ngFor="let condition of conditionList" [value]="condition.id">
+              {{condition.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1" *ngIf="conditionVal == '1' || conditionVal == '2' ">
+        <mat-form-field class="full-width">
+          <mat-label>Add Value</mat-label>
+          <input matInput type="text" formControlName="condition_value" placeholder="Add Value">
+        </mat-form-field>
+      </div>
+    </div>
+
+  </span>
+  <!-- Branch Section End -->
+
+  <!-- Email Section Start -->
+  <span *ngIf="actionValue == '3' ">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-label>Choose Email</mat-label>
+          <mat-select formControlName="emailtemp">
+            <mat-option *ngFor="let email of emailTemlateList" [value]="email.id">
+              {{email.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </span>
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="mt-1">
+      <button mat-button color="warn" type="button" (click)="close()">Cancel</button>
+      <button mat-button type="button" color="primary" (click)="actionSave()">Save</button>
+    </div>
+  </div>
+  <!-- Email Section End -->
+
+</form>

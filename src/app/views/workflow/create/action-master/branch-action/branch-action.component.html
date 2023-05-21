@@ -1,0 +1,50 @@
+<!-- Branch ACTION SECTION -->
+  <mat-card>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+      <div fxFlex="100" class="pr-1 box-title">
+        <h4>
+          {{data.action.value}}
+          <mat-icon class="icons close" (click)="deleteaction(data)">cancel</mat-icon> 
+          <mat-icon class="icons edit">edit</mat-icon>
+        </h4>
+      </div>
+  
+      <div fxFlex="100" class="box">
+        <p class="branch-p capitalize">First, check <b>{{ data.ifbranchname }}</b></p>
+        <span class="box-h">
+          Type <b> {{ data.type.value}} </b> <b>{{ data.property.value }}</b>
+                  {{data.condition.value }} <b>{{data.conditionvalue}} </b>
+        </span>
+      </div>
+    </div>
+  </mat-card>
+  <div class="vl"></div>
+  <div class="hr"></div>
+  <div fxLayout="row" fxLayout.lt-sm="column" class="branch-w">
+    <div fxFlex="50" class="box b-box">
+      <mat-card class="l-box">
+        <p class="capitalize">{{ data.ifbranchname }}</p>
+      </mat-card>
+      <div class="vl"> <mat-icon (click)="action_true(true,data)">add_circle_outline</mat-icon></div>
+      <ng-template #branch_true>
+        
+      </ng-template>
+      <mat-card>
+        END
+      </mat-card>
+    </div>
+  
+    <div fxFlex="50" class="box b-box">
+      <mat-card class="r-box">
+        {{ data.thenbranchname || 'None' }}
+      </mat-card>
+      <div class="vl"> <mat-icon (click)="action_true(false,data)">add_circle_outline</mat-icon></div>
+      <ng-template #branch_false>
+        
+      </ng-template>
+      <mat-card>
+        END
+      </mat-card>
+    </div>
+  </div>
+  

@@ -1,0 +1,127 @@
+<h1 matDialogTitle>{{getTitle()}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()" autocomplete="new-cmsform">
+  <div class="vendor-form">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+      <div fxFlex="50" class="pr-1" *ngIf="isEdit">
+        <mat-form-field class="full-width">
+          <input matInput readonly autocomplete="new-purchase-order-number" name="new-purchase-order-number"
+            [formControl]="itemForm.controls['purchase_order_number']" placeholder="Purchase Order Number">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input readonly matInput autocomplete="new-quote" name="new-quote"
+            [formControl]="itemForm.controls['quote_id']" placeholder="Quote">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select [formControl]="itemForm.controls['vendor_id']" placeholder="Vendor" #vendorSelect
+            (selectionChange)="onVendorFilterChange($event.value)">
+            <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "
+              [formControl]="vendorFilterCtrl" [preventHomeEndKeyPropagation]="true">
+              <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+            </ngx-mat-select-search>
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let vendor of filteredVendor" [value]="vendor.id">
+              {{ vendor?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div fxFlex="50" class="pr-5">
+          <button mat-raised-button class="float-right" color="primary" type="button" (click)="addNewVendor()">Add
+            New</button>
+        </div>
+      </div>
+
+      <div fxFlex="50" class="pr-1" *ngIf="filteredVendor && filteredVendor.length && vendorId">
+        <mat-form-field class="full-width">
+          <mat-select [formControl]="itemForm.controls['vendor_contact_id']" placeholder="Vendor Contact"
+            #vendorContactSelect (selectionChange)="onVendorContactFilterChange($event.value)">
+            <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "
+              [formControl]="vendorContactFilterCtrl" [preventHomeEndKeyPropagation]="true">
+              <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+            </ngx-mat-select-search>
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let vendorContact of filteredVendorContact" [value]="vendorContact.id">
+              {{ vendorContact?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div fxFlex="50" class="pr-5">
+          <button mat-raised-button class="float-right" color="primary" type="button" (click)="addNewVendorContact()">Add
+            New</button>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput type="description" autocomplete="new-description" name="new-description"
+            [formControl]="itemForm.controls['description']" placeholder="Description">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput autocomplete="new-amount" name="new-amount" [formControl]="itemForm.controls['amount']"
+            mask="separator.2" placeholder="Amount" thousandSeparator="," [allowNegativeNumbers]="true">
+          <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select [formControl]="itemForm.controls['request_approval_from']" placeholder="Request Approval"
+            #singleSelect (selectionChange)="onRequestApprovalFilterChange($event.value)">
+            <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "
+              [formControl]="requestApprovalFilterCtrl" [preventHomeEndKeyPropagation]="true">
+              <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+            </ngx-mat-select-search>
+            <mat-option *ngFor="let requestApproval of filteredRequestApproval" [value]="requestApproval.id">
+              {{ requestApproval?.first_name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select [formControl]="itemForm.controls['category']" placeholder="Category " #singleSelect>
+            <mat-option value="customer">Customer </mat-option>
+            <mat-option value="office">Office</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input autocomplete="off" matInput name="payment_date" [matDatepicker]="payment_date"
+            placeholder="Payment Date" [formControl]="itemForm.controls['payment_date']">
+          <mat-datepicker-toggle matSuffix [for]="payment_date"></mat-datepicker-toggle>
+          <mat-datepicker #payment_date></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pt-5" *ngIf="isAllowUpdate">
+        <div fxFlex="100" class="mt-1">
+          <mat-checkbox name="approve" [formControl]="itemForm.controls['approved']" class="pb-1">Approve
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="mt-1">
+      <app-button-loading loadingText="Processing..." [loading]="saving" [disabled]="itemForm.invalid" color="primary">
+        {{ saveButtonLabel | translate }}</app-button-loading>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

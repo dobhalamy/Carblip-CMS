@@ -1,0 +1,168 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()" autocomplete="new-userform">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        autocomplete="new-firstname"
+        name="new-firstname"
+        [formControl]="itemForm.controls['first_name']"
+        placeholder="First Name"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        autocomplete="new-lastname"
+        name="new-lastname"
+        [formControl]="itemForm.controls['last_name']"
+        placeholder="Last Name"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+    
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width phone-input">
+        <input
+        matInput
+        autocomplete="new-phone"
+        name="new-phone"
+        pattern="^\d{3}[- ]?\d{3}[- ]?\d{4}$"
+        [formControl]="itemForm.controls['phone']"
+        placeholder="Phone"
+        appPhoneNumber>
+        <span matPrefix>+1</span>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        type="email"
+        matInput
+        autocomplete="new-email"
+        name="new-email"
+        pattern="[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}"
+        [formControl]="itemForm.controls['email_address']"
+        placeholder="Email"
+        appNoWhitespace>
+      </mat-form-field>
+    </div> 
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select [formControl]="itemForm.controls['contact_owner_email']" placeholder="Contact Owner" #singleSelect>
+          <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="cmsUserFilterCtrl" [preventHomeEndKeyPropagation]="true">
+            <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let item of filteredCmsUsers" [value]="item.email">
+            {{ item?.full_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- <div fxFlex="100"  class="pr-1">
+      <div class="full-width">
+        <mat-label class="pr-1">Active</mat-label>
+        <mat-slide-toggle
+          [checked]="isActive ? true : false"
+          (change)="isActive = !isActive">
+        </mat-slide-toggle>
+      </div>
+    </div>  -->
+
+      <div fxFlex="50"  class="pr-1" *ngIf="showCarsdirectFields">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          autocomplete="phone_preferred_contact"
+          name="phone_preferred_contact"
+          [formControl]="itemForm.controls['phone_preferred_contact']"
+          placeholder="Phone Preferred Contact"
+          maxlength="1"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1" *ngIf="showCarsdirectFields">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          autocomplete="phone_preferred_time"
+          name="phone_preferred_time"
+          [formControl]="itemForm.controls['phone_preferred_time']"
+          placeholder="Phone Preferred Time"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1" *ngIf="showCarsdirectFields">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          autocomplete="phone_preferred_type"
+          name="phone_preferred_type"
+          [formControl]="itemForm.controls['phone_preferred_type']"
+          placeholder="Phone Preferred Type"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1" *ngIf="showCarsdirectFields">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          autocomplete="street_address"
+          name="street_address"
+          [formControl]="itemForm.controls['street_address']"
+          placeholder="Street Address"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1" >
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          autocomplete="city"
+          name="city"
+          [formControl]="itemForm.controls['city']"
+          placeholder="City"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1" >
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          autocomplete="state"
+          name="state"
+          [formControl]="itemForm.controls['state']"
+          placeholder="State"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          autocomplete="zip"
+          name="zip"
+          [formControl]="itemForm.controls['zip']"
+          placeholder="Zip"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+    <div fxFlex="100" class="mt-1">
+      <app-button-loading loadingText="Processing..." [loading]="saving" [disabled]="itemForm.invalid" color="primary">{{ saveButtonLabel | translate }}</app-button-loading>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,51 @@
+<mat-card>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="80" class="pr-1 box-title">
+      Enrollment Trigger
+    </div>
+    
+    <div class="trigger-l">
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="100" class="box" *ngFor="let triggerdata of triggers; let i = index;">
+          <div class="box-h"  >
+            <!-- ADD SINGLE CONDITION START -->
+            <mat-card >
+              Type <b> {{ triggerdata.type.value}} </b>
+              <b> {{ triggerdata.property.value }}</b>
+              {{triggerdata.condition.value }}
+              <b>{{triggerdata.conditionvalue}} </b>
+            </mat-card>
+            <!-- ADD SINGLE CONDITION END -->
+            <!-- ADD MULTI CONDITION START -->
+            <div *ngIf="triggerdata.multivalue?.length">
+              <div class="box-mt" *ngFor="let mulival of triggerdata.multivalue; let x = index;">
+                <p class="uppercase">{{ mulival.conditionname }}</p>
+                <mat-card>
+                  Type <b> {{ mulival.type.value}} </b>
+                  <b> {{ mulival.property.value }}</b>
+                  {{mulival.condition.value }}
+                  <b>{{mulival.conditionvalue}} </b>
+                </mat-card>
+              </div>
+            </div>
+            <!-- ADD MULTI CONDITION END -->
+
+            <div class="btn-d">
+              <button mat-button type="button" color="primary"
+                (click)="onAddcondition('AND',triggers[i].type.id,i)">AND</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="btn-o" fxFlex="100">
+          <button mat-button type="button" color="primary" (click)="onAddcondition('OR',null,null)">OR</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</mat-card>
+<div class="vl"> <mat-icon (click)="action()">add_circle_outline</mat-icon></div>

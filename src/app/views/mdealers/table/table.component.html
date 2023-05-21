@@ -1,0 +1,100 @@
+<table class="w-100" mat-table *ngIf="dealers"  matSortActive={{sortKey}} matSortDirection={{sortDirection}} matSortDisableClear [dataSource]="dealers" matSort (matSortChange)="sortData($event)">
+    <ng-container matColumnDef="srNo" sticky>
+        <mat-header-cell class="cell-srno" *matHeaderCellDef
+            >Sr #</mat-header-cell
+        >
+        <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+            <a href="javascript:;">
+                {{ offset + i }}
+            </a>
+        </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="name">
+        <mat-header-cell class="cell-name cell-metric" *matHeaderCellDef mat-sort-header
+            >Name</mat-header-cell
+        >
+        <mat-cell class="cell-name cell-metric" *matCellDef="let item">
+            {{ item.name}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+        <mat-header-cell class="cell-address cell-metric" *matHeaderCellDef mat-sort-header
+            >Address</mat-header-cell
+        >
+        <mat-cell class="cell-address cell-metric" *matCellDef="let item">
+            {{ item.address}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+        <mat-header-cell class="cell-city cell-metric" *matHeaderCellDef mat-sort-header
+            >City</mat-header-cell
+        >
+        <mat-cell class="cell-city cell-metric" *matCellDef="let item">
+            {{ item.city}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell class="cell-state cell-metric" *matHeaderCellDef mat-sort-header
+            >State</mat-header-cell
+        >
+        <mat-cell class="cell-state cell-metric" *matCellDef="let item">
+            {{ item.state}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+        <mat-header-cell class="cell-phone cell-metric" *matHeaderCellDef mat-sort-header
+            >Phone</mat-header-cell
+        >
+        <mat-cell class="cell-phone cell-metric" *matCellDef="let item">
+            {{ item.phone | phone:'US' }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="zip">
+        <mat-header-cell class="cell-zip cell-metric" *matHeaderCellDef mat-sort-header
+            >Zip</mat-header-cell
+        >
+        <mat-cell class="cell-zip cell-metric" *matCellDef="let item">
+            {{ item.zip}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell class="cell-created_at cell-metric" *matHeaderCellDef mat-sort-header
+            >Created At</mat-header-cell
+        >
+        <mat-cell class="cell-created_at cell-metric" *matCellDef="let item">
+            {{ item.created_at | date:'MM-dd-yyy hh:mm a' }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updated_at">
+        <mat-header-cell class="cell-updated_at cell-metric" *matHeaderCellDef mat-sort-header
+            >Updated At</mat-header-cell
+        >
+        <mat-cell class="cell-updated_at cell-metric" *matCellDef="let item">
+            {{ item.updated_at | date:'MM-dd-yyy hh:mm a' }}
+        </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-actions" *matHeaderCellDef
+            >Actions</mat-header-cell
+        >
+        <mat-cell class="cell-actions" *matCellDef="let item">
+            <button mat-icon-button routerLink="./{{item.id}}"><mat-icon>remove_red_eye</mat-icon></button>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row
+        *matHeaderRowDef="columnHeaders; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders" routerLink="./{{row.id}}"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && dealers.length === 0">No Records Found!</div>
+  

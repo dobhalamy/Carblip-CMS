@@ -1,0 +1,68 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="emailForm">
+  <!-- <div fxLayout="row wrap" fxLayout.lt-sm="column" class="mb-1" *ngIf="loadingFilter">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div> -->
+  <!-- <div fxLayout="row wrap" fxLayout.lt-sm="column"> -->
+  <div class="pr-1 sendTo">
+    <mat-form-field appearance="standard">
+      <mat-label>To</mat-label>
+      <input matInput placeholder="To" [value]="registerUserInfo?.email_address" formControlName="to" [readonly]="true" />
+    </mat-form-field>
+
+    <div class="mat-icon">
+      <span class="CCIcons">
+        <mat-icon (click)="showCC()">CC</mat-icon>
+        <mat-icon (click)="showBCC()">BCC</mat-icon>
+      </span>
+    </div>
+  </div>
+
+
+  <div class="pr-1" *ngIf="cc">
+    <mat-form-field appearance="standard">
+      <mat-label>CC</mat-label>
+      <input matInput placeholder="Add cc" formControlName="addCc">
+    </mat-form-field>
+  </div>
+
+  <div class="pr-1" *ngIf="bcc">
+    <mat-form-field appearance="standard">
+      <mat-label>BCC</mat-label>
+      <input matInput placeholder="Add bcc" formControlName="addBcc">
+    </mat-form-field>
+  </div>
+
+  <div class="pr-1">
+    <mat-form-field appearance="standard">
+      <mat-label>Subject</mat-label>
+      <input matInput placeholder="Subject" formControlName="subject">
+    </mat-form-field><br>
+  </div>
+
+  <div class="pr-1 editor">
+    <mat-label>Message</mat-label>
+    <ckeditor [editor]="Editor" formControlName="message" data=""></ckeditor>
+  </div>
+
+  <div class="selectFileInput pr-1 editor">
+    <!-- <input 
+    id="file"
+    class="text-center" 
+    type="file" 
+    style="display: none"
+    #fileInput
+    (change)="onFileSelected($event)"
+    ><br> -->
+    <file-uploader (getUploadDetails)="fileUploadDetails($event)" [userDetails]="registerUserInfo"></file-uploader>
+    <!-- <button class="bg changeProfile" mat-flat-button (click)="fileInput.click()"><mat-icon>attachment</mat-icon></button>   -->
+    <!-- <span class="attachment">{{filename}}</span> -->
+</div>
+
+
+  <div class="footer-buttons">
+    <button mat-button type="button" color="primary" [disabled]="!emailForm.valid" (click)="sendMail()">Send</button>
+    <span fxFlex></span>
+    <button mat-button type="button" color="warn" (click)="dialogRef.close(true)">Cancel</button>
+  </div>
+</form>

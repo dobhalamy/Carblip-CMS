@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-title class="">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+      <div fxFlex="50" class="pr-1 text-text">
+        <div class="card-title-text">SMS</div>
+      </div>
+      <div fxFlex="50" class="pr-1 text-right">
+        <!-- <button mat-raised-button class="mr-05" color="primary" (click)="connectCall()">
+          <mat-icon>call</mat-icon>
+        </button> -->
+        <button mat-raised-button class="mr-05" color="primary" (click)="refresh()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-title>
+
+  <mat-card-content class="mt-1"> 
+    <div class="message-detail">
+      <div class="message-div" *ngFor="let item of SmsData">
+        <div [ngClass]="item.sms_status == 'Sent' ? 'receive-message': ''">
+          <p class="message"> {{item.body}}</p>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="smsForm">
+      <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1 margin-333">
+        <div fxFlex="80" class="pr-1">
+          <input matInput placeholder="Type a message..." formControlName="message">
+        </div>
+        <div fxFlex="20" class="pr-1">
+          <button mat-raised-button class="mr-05" color="primary" (click)="sendSms()">Send</button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,111 @@
+<table class="w-100" mat-table *ngIf="dealers" [dataSource]="dealers" matSortActive={{sortKey}} matSortDirection={{sortDirection}} matSort (matSortChange)="sortData($event)">
+    <ng-container matColumnDef="srNo" sticky>
+        <mat-header-cell class="cell-srno" *matHeaderCellDef
+            >Sr #</mat-header-cell
+        >
+        <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+            <a href="javascript:;">
+                {{ offset + i }}
+            </a>
+        </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="name">
+        <mat-header-cell class="cell-name cell-metric" *matHeaderCellDef mat-sort-header
+            >Name</mat-header-cell
+        >
+        <mat-cell class="cell-name cell-metric" *matCellDef="let item">
+            {{ item.name}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="street">
+        <mat-header-cell class="cell-street cell-metric" *matHeaderCellDef mat-sort-header
+            >Street</mat-header-cell
+        >
+        <mat-cell class="cell-street cell-metric" *matCellDef="let item">
+            {{ item.street}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+        <mat-header-cell class="cell-city cell-metric" *matHeaderCellDef mat-sort-header
+            >City</mat-header-cell
+        >
+        <mat-cell class="cell-city cell-metric" *matCellDef="let item">
+            {{ item.city}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell class="cell-state cell-metric" *matHeaderCellDef mat-sort-header
+            >State</mat-header-cell
+        >
+        <mat-cell class="cell-state cell-metric" *matCellDef="let item">
+            {{ item.state}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="zip_code">
+        <mat-header-cell class="cell-zip_code cell-metric" *matHeaderCellDef mat-sort-header
+            >Zip Code</mat-header-cell
+        >
+        <mat-cell class="cell-zip_code cell-metric" *matCellDef="let item">
+            {{ item.zip_code}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+        <mat-header-cell class="cell-phone cell-metric" *matHeaderCellDef mat-sort-header
+            >Phone</mat-header-cell
+        >
+        <mat-cell class="cell-phone cell-metric" *matCellDef="let item">
+            {{ item.phone | phone:'US' }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="website">
+        <mat-header-cell class="cell-website cell-metric" *matHeaderCellDef mat-sort-header
+            >Website</mat-header-cell
+        >
+        <mat-cell class="cell-website cell-metric" *matCellDef="let item">
+            {{ item.website}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell class="cell-created_at cell-metric" *matHeaderCellDef mat-sort-header
+            >Created At</mat-header-cell
+        >
+        <mat-cell class="cell-created_at cell-metric" *matCellDef="let item">
+            {{ item.created_at | date:'MM-dd-yyy hh:mm a' }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updated_at">
+        <mat-header-cell class="cell-updated_at cell-metric" *matHeaderCellDef mat-sort-header
+            >Updated At</mat-header-cell
+        >
+        <mat-cell class="cell-updated_at cell-metric" *matCellDef="let item">
+            {{ item.updated_at | date:'MM-dd-yyy hh:mm a' }}
+        </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-actions" *matHeaderCellDef
+            >Actions</mat-header-cell
+        >
+        <mat-cell class="cell-actions" *matCellDef="let item" (click)="$event.stopPropagation();">
+            <button mat-icon-button routerLink="./{{item.id}}"><mat-icon>remove_red_eye</mat-icon></button>
+            <button mat-icon-button (click)="onEdit(item)"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button (click)="onDelete(item, i)"><mat-icon>delete</mat-icon></button>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row
+        *matHeaderRowDef="columnHeaders; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders" routerLink="./{{row.id}}"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && dealers.length === 0">No Records Found!</div>
+  

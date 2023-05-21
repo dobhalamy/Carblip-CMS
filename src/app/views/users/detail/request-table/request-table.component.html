@@ -1,0 +1,113 @@
+<mat-card>
+    <mat-card-title class="">
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+            <div fxFlex="50" class="pr-1 text-text">
+                <div class="card-title-text">Requests</div>
+            </div>
+            <div fxFlex="50" class="pr-1 text-right">
+                <button mat-raised-button class="mr-05" color="primary" (click)="onAddRequest()">{{"ADD" | translate
+                    }} {{"NEW" | translate }}</button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content class="mt-1">
+        <mat-table [dataSource]="dataSource" matSort #TableRequestSort="matSort"  (matSortChange)="sortData($event)">
+            <ng-container matColumnDef="srNo" sticky>
+                <mat-header-cell class="cell-srno" *matHeaderCellDef>Sr #</mat-header-cell>
+                <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+                    <a href="javascript:;">
+                        {{ dataSource.filteredData.indexOf(item) + 1}}
+                    </a>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+                <mat-header-cell class="cell-year cell-metric" *matHeaderCellDef>Year
+                </mat-header-cell>
+                <mat-cell class="cell-year cell-metric" *matCellDef="let item">
+                    {{ item?.year}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="brand">
+                <mat-header-cell class="cell-brand cell-metric" *matHeaderCellDef>Brand
+                </mat-header-cell>
+                <mat-cell class="cell-brand cell-metric" *matCellDef="let item">
+                    {{ item?.brand | excerpt:30 }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="model">
+                <mat-header-cell class="cell-model cell-metric" *matHeaderCellDef>Model
+                </mat-header-cell>
+                <mat-cell class="cell-model cell-metric" *matCellDef="let item">
+                    {{ item?.model | excerpt:30 }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="trim">
+                <mat-header-cell class="cell-trim cell-metric" *matHeaderCellDef>Trim
+                </mat-header-cell>
+                <mat-cell class="cell-trim cell-metric" *matCellDef="let item">
+                    {{ item?.trim | excerpt:30 }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="contact_owner">
+                <mat-header-cell class="cell-contact_owner cell-metric" *matHeaderCellDef>Contact
+                    Owner</mat-header-cell>
+                <mat-cell class="cell-contact_owner cell-metric" *matCellDef="let item">
+                    {{ item?.contact_owner }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="referral_code">
+                <mat-header-cell class="cell-referral_code cell-metric" *matHeaderCellDef mat-sort-header>Referral
+                    Code</mat-header-cell>
+                <mat-cell class="cell-referral_code cell-metric" *matCellDef="let item">
+                    {{ item?.referral_code }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="source">
+                <mat-header-cell class="cell-source cell-metric" *matHeaderCellDef mat-sort-header>Source
+                </mat-header-cell>
+                <mat-cell class="cell-source cell-metric" *matCellDef="let item">
+                    {{ item?.source_utm }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="created_at">
+                <mat-header-cell class="cell-created_at cell-metric" *matHeaderCellDef mat-sort-header>Created At
+                </mat-header-cell>
+                <mat-cell class="cell-created_at cell-metric" *matCellDef="let item">
+                    {{ item?.request_time | date:'MM-dd-yyy hh:mm a' }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell class="cell-actions" *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell class="cell-actions" *matCellDef="let item; let i = index;"
+                    (click)="$event.stopPropagation();">
+                    <button mat-icon-button routerLink="/requests/{{item.id}}">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </button>
+                    <button mat-icon-button *ngIf="showDeleteButton(item)" (click)="onDelete(item, i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="columnHeaders; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnHeaders" routerLink="/requests/{{row.id}}"></mat-row>
+        </mat-table>
+        <div class="text-center margin-333" *ngIf="(didFetch$ | async) && user?.requests.length === 0">No Records
+            Found!</div>
+
+        <mat-paginator #TableRequestPaginator="matPaginator" [length]="dataRequestSource.length" [pageSize]="dataRequestSource.pageSize"
+            [pageIndex]="dataRequestSource.pageIndex" [pageSizeOptions]="[10,20, 50, 100]"
+            [showFirstLastButtons]="true" (page)="onRequestPaginateChange($event)">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>

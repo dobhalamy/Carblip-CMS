@@ -1,0 +1,190 @@
+<div class="detail-information-wrapper">
+    <mat-card *ngIf="isReady">
+        <mat-card-title class="">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+                <div fxFlex="70" class="pr-1 text-text">
+                    <div class="card-title-text">User {{user.full_name}}'s Detail</div>
+                </div>
+
+                <div fxFlex="10" class="pr-1 text-right">
+                    <ng-container *ngIf="indirectShowDeleteButton()">
+                        <button mat-button color="primary" class="back-button" type="button"
+                            [ngClass]="{'mat-button': !raised,'mat-raised-button': !raised }"
+                            (click)="indirectDeleteDialogBox()">
+                            {{"DELETE" | translate}}
+                        </button>
+                    </ng-container>
+                </div>
+
+                <div fxFlex="10" class="pr-1 text-right">
+                    <ng-container *ngIf="indirectShowEditButton()">
+                        <button mat-button color="primary" class="back-button" type="button"
+                            [ngClass]="{'mat-button': !raised,'mat-raised-button': !raised }"
+                            (click)="indirectEditDialogBox()">
+                            {{"EDIT" | translate}}
+                        </button>
+                    </ng-container>
+                </div>
+
+                <div fxFlex="10" class="pr-1 text-right">
+                    <app-back-button color="primary">{{"BACK" | translate }}</app-back-button>
+                </div>
+
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-title>
+
+        <mat-card-content class="mt-1">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" name="first_name" [value]="user?.first_name" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput type="text" name="last_name" [value]="user?.last_name" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" name="email" [value]="user?.email_address" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Contact Owner</mat-label>
+                        <input matInput type="text" name="contact_owner" [value]="user?.contact_owner" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Source</mat-label>
+                        <input matInput type="text" name="source" [value]="user?.source" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput type="text" name="phone" [value]="user?.phone | phone:'US'" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone Preferred Contact</mat-label>
+                        <input matInput type="text" name="phone_preferred_contact"
+                            [value]="user?.phone_preferred_contact" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone Preferred Time</mat-label>
+                        <input matInput type="text" name="phone_preferred_time" [value]="user?.phone_preferred_time"
+                            disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone Preferred Type</mat-label>
+                        <input matInput type="text" name="phone_preferred_type" [value]="user?.phone_preferred_type"
+                            disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Street Address</mat-label>
+                        <input matInput type="text" name="street_address" [value]="user?.street_address" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>City</mat-label>
+                        <input matInput type="text" name="city" [value]="user?.city" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>State</mat-label>
+                        <input matInput type="text" name="state" [value]="user?.state" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Zip</mat-label>
+                        <input matInput type="text" name="zip" [value]="user?.zip" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>App Version</mat-label>
+                        <input matInput type="text" name="app_version" [value]="user?.app_version" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Device Type</mat-label>
+                        <input matInput type="text" name="device_type" [value]="user?.device_type" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <div class="full-width">
+                        <mat-label class="pr-1">Request Succesfully Completed?</mat-label>
+                        <mat-chip mat-sm-chip class="process-status" [color]="getBoolColor(user?.lease_captured)"
+                            selected>{{user?.lease_captured ? 'Yes' : 'No'}}</mat-chip>
+                    </div>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Created At</mat-label>
+                        <input matInput type="text" name="created_at"
+                            [value]=" user.created_at | date:'MM-dd-yyy hh:mm a' " disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Updated At</mat-label>
+                        <input matInput type="text" name="updated_at"
+                            [value]=" user.updated_at    | date:'MM-dd-yyy hh:mm a' " disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="pt-16">
+                <h2>History</h2>
+                <ul class="log-ul">
+                    <li *ngFor="let log of logs;let i=index">
+                        Version
+                        {{(logPagination.length)-((logPagination.pageSize*(logPagination.pageIndex+1))-logPagination.pageSize+i)}}
+                        - 
+                        <span [innerHTML]="log.content"></span>
+                        <span>{{formatLogMessage(log.content)}} {{ log.created_at | date:'MM/dd/yyy \'at\' hh:mm a' }}</span>
+                    </li>
+                </ul>
+                <mat-paginator #paginator [length]="logPagination.length" [pageSize]="logPagination.pageSize"
+					[pageIndex]="logPagination.pageIndex" [pageSizeOptions]="[10,20, 50, 100]"
+					[showFirstLastButtons]="true" (page)="onLogPaginateChange($event)">
+				</mat-paginator>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+    <app-request-table *ngIf = "user"></app-request-table>
+    <app-users-chat *ngIf = "user" [userInfo]="user"></app-users-chat>
+    <app-user-twiliocall *ngIf = "user" [userInfo]="user"></app-user-twiliocall>
+    <app-mailbox-table *ngIf = "showEmailSection" [userInfo]="user"></app-mailbox-table>
+    <app-wholesale-table *ngIf = "user"></app-wholesale-table>
+</div>

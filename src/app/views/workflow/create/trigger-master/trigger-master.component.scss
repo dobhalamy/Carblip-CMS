@@ -1,0 +1,111 @@
+.box-title {
+    text-align: center;
+    font-size: 17px;
+    font-weight: bolder;
+}
+
+form {
+    text-align: -webkit-center;
+}
+
+.title {
+    width: 50%;
+    padding: 10px 20px 10px 20px;
+}
+
+mat-card {
+    width: fit-content;
+    padding: 10px 20px 10px 20px;
+    border: 3px solid #f2f2f2;
+    margin-top: -2px;
+
+    .trigger-btn {
+        border: 2px solid;
+    }
+
+    button {
+        float: right;
+    }
+
+    .trigger-l {
+        width: -webkit-fill-available;
+    }
+
+}
+
+
+.btn-o {
+    margin-right: 146px;
+}
+
+.box {
+    text-align: -webkit-center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    mat-card {
+        width: fit-content;
+        padding: 10px 20px 10px 20px;
+        border: 3px solid #f2f2f2;
+    }
+
+    .btn-d {
+        display: flow-root;
+    }
+
+    .box-h {
+        font-size: 16px;
+        border: 4px solid #f2f2f2;
+        padding: 10px 20px 10px 20px;
+        width: 53%;
+        height: auto;
+    }
+
+    .box-t {
+        font-size: 16px;
+        border: 4px solid #f2f2f2;
+        padding: 10px 20px 10px 20px;
+        margin-bottom: 15px;
+    }
+
+    .box-mt {
+        font-size: 16px;
+        padding: 10px 20px 10px 20px;
+        height: auto;
+        width: 70%;
+    }
+
+}
+
+
+.vl {
+    height: 60px;
+    background-image: linear-gradient(#f1f2f2, #f2f2f2);
+    background-size: 3px 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-top: -8px;
+    margin-bottom: -2px;
+
+    mat-icon {
+        padding: 18px 5px 0px 0px;
+        color: #868b8f;
+        cursor: pointer;
+        font-size: 26px;
+    }
+}
+
+.hr {
+    height: 100px;
+    width: 50%;
+    border-top: 3px solid;
+    border-left: 3px solid;
+    border-color: #f2f2f2;
+    border-right: 3px solid;
+    border-right-color: #f2f2f2;
+}
+
+
+app-trigger-master{
+    text-align: -webkit-center;
+}

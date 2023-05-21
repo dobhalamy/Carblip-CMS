@@ -1,0 +1,154 @@
+<div class="m-333 text-right">
+    <button mat-raised-button class="mr-05" color="primary" (click)="onAddItem()">{{"ADD" | translate }} {{"NEW" | translate }}</button>
+</div>
+<mat-card>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-end center" class="margin-333">
+        <div fxFlex="70" class="filter-div">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header class="mat-bg-primary">
+                    <mat-panel-title>
+                    Filter
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <form [formGroup]="filterForm" (ngSubmit)="filterSubmit()">
+                    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field class="full-width" floatLabel="always">
+                                <mat-label>First Name</mat-label>
+                                <input
+                                    matInput
+                                    type="text"
+                                    formControlName="first_name"
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field class="full-width" floatLabel="always">
+                                <mat-label>Last Name</mat-label>
+                                <input
+                                    matInput
+                                    type="text"
+                                    formControlName="last_name"
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field class="full-width" floatLabel="always">
+                                <mat-label>Phone</mat-label>
+                                <input
+                                    matInput
+                                    type="text"
+                                    formControlName="phone"
+                                    pattern="^\d{3}[- ]?\d{3}[- ]?\d{4}$"
+                                    appPhoneNumber
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50"  class="pr-1">
+                            <app-carblip-calendar [dateRange]="daterrange" (onChange)="onCalendarChange($event)"> </app-carblip-calendar>
+                        </div>
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Owner</mat-label>
+                                <mat-select [formControl]="filterForm.controls['contact_owner']" #cmsUsersSelect>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="cmsUserFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option>All</mat-option>
+                                    <mat-option *ngFor="let item of filteredCmsUsers" [value]="item.email">
+                                        {{item.full_name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Created By</mat-label>
+                                <mat-select [formControl]="filterForm.controls['created_by']" #cmsUsersSelect>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="createdByFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option>All</mat-option>
+                                    <mat-option  *ngFor="let item of filteredCreatedBy" [value]="item.id">
+                                        {{item.full_name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Source</mat-label>
+                                <mat-select [formControl]="filterForm.controls['source']" #sourceSelect multiple>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'"
+                                        [noEntriesFoundLabel]="'No matches' " [formControl]="sourceFilterCtrl"
+                                        [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option (click)="checkAllSource()" value="10">All</mat-option>
+                                    <mat-option [disabled]="disableAllOptionInSource" *ngFor="let item of filteredSourcess" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxLayoutAlign="space-between center"  class="pr-1">
+                            <button mat-raised-button color="primary">Run <mat-icon>directions_run</mat-icon></button>
+                        </div>
+                    </div>
+                </form>
+            </mat-expansion-panel>
+        </div>
+        <div fxFlex="30" class="text-right">
+            <mat-form-field>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput type="text" name="searchSource" placeholder="Search here" [(ngModel)]="search" #searchInput />
+            </mat-form-field>
+        </div>
+    </div>
+    <mat-progress-bar *ngIf="(fetching$ | async)" mode="indeterminate"></mat-progress-bar>
+    <app-users-table class="display-block w-100 list-table"></app-users-table>
+    <mat-paginator
+        #paginator
+        [length]="tablePagination.length"
+        [pageSize]="tablePagination.pageSize"
+        [pageIndex]="tablePagination.pageIndex"
+        [pageSizeOptions]="[20, 50, 100]"
+        [showFirstLastButtons]="true"
+        (page)="onPaginateChange($event)"
+    >
+    </mat-paginator>
+</mat-card>
+
+
+<mat-card>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between flex-start" class="margin-333">
+        <div fxFlex="70" class="filter-div">    
+            <h2>User's History</h2>
+        </div>
+        <div fxFlex="30" class="text-right">
+            <mat-form-field>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput type="text" name="searchLogSource" placeholder="Search here" [(ngModel)]="logSearch" #searchLogInput />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="margin-333">
+        <mat-progress-bar *ngIf="(logFetching$ | async)" mode="indeterminate"></mat-progress-bar>
+        <ul class="log-ul">
+            <li *ngFor="let log of logs">
+                <span [innerHTML]="log.content"></span>
+                {{ formatLogMessage(log.content) }} {{ log.created_at | date:'MM/dd/yyy \'at\' hh:mm a'}}
+            </li>
+        </ul>
+    </div>
+    <mat-paginator
+        #paginator
+        [length]="logPagination.length"
+        [pageSize]="logPagination.pageSize"
+        [pageIndex]="logPagination.pageIndex"
+        [pageSizeOptions]="[20, 50, 100]"
+        [showFirstLastButtons]="true"
+        (page)="onLogPaginateChange($event)"
+    >
+    </mat-paginator>
+</mat-card>

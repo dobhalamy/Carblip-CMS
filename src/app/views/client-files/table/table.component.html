@@ -1,0 +1,124 @@
+<table mat-table
+	[dataSource]="dataSource" multiTemplateDataRows
+	class="mat-elevation-z8">
+	<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+		<th mat-header-cell *matHeaderCellDef> {{column}} </th>
+		<td mat-cell *matCellDef="let element"> 
+			<span *ngIf="column == 'Sr#'">{{ offset + element.sr }}</span> 
+			<span *ngIf="column == 'First Name'">{{element.first_name}}</span> 
+			<span *ngIf="column == 'Last Name'">{{element.last_name}}</span> 
+			<span *ngIf="column == 'Phone'">{{element.phone | phone:'US'}}</span> 
+			<span *ngIf="column == 'Email Address'">{{element.email_address}}</span> 
+			<span *ngIf="column == 'File Type'">{{element.file_type | titlecase }}</span> 
+			<span *ngIf="column == 'Created At'">{{element.created_at}}</span> 
+			<span *ngIf="column == 'Actions' && element.total_application == 1 && element.status != null">
+				<mat-icon matTooltip="Click to download a file" (click)="getCreditApplication(element.id, 'download')">download</mat-icon>
+			</span> 
+		</td>
+	</ng-container>
+	<ng-container matColumnDef="expand">
+		<th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+		<td mat-cell *matCellDef="let element">
+			<button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+				<mat-icon *ngIf="expandedElement !== element && element.total_application > 1">expand_more</mat-icon>
+				<mat-icon *ngIf="expandedElement === element && element.total_application > 1">expand_less</mat-icon>
+			</button>
+		</td>
+	</ng-container>
+
+	<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+	<ng-container matColumnDef="expandedDetail">
+		<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+			<div class="example-element-detail" *ngIf="element.total_application > 1"
+				[@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+				<div class="example-element-description">
+          <table class="w-100" mat-table *ngIf="clientFiles" [dataSource]="clientFiles" matSortActive={{sortKey}} matSortDirection={{sortDirection}} matSort (matSortChange)="sortData($event)">
+            <ng-container matColumnDef="srNo" sticky>
+              <mat-header-cell class="cell-srno" *matHeaderCellDef
+                >Sr #</mat-header-cell
+              >
+              <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+                <a href="javascript:;">
+                  {{ offset + i }}
+                </a>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="first_name">
+              <mat-header-cell class="cell-first_name cell-metric" *matHeaderCellDef
+                >First Name</mat-header-cell
+              >
+              <mat-cell class="cell-first_name cell-metric" *matCellDef="let item">
+                {{ item?.first_name }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="last_name">
+              <mat-header-cell class="cell-last_name cell-metric" *matHeaderCellDef
+                >Last Name</mat-header-cell
+              >
+              <mat-cell class="cell-last_name cell-metric" *matCellDef="let item">
+                {{ item?.last_name }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="phone_number">
+              <mat-header-cell class="cell-phone_number cell-metric" *matHeaderCellDef
+                >Phone</mat-header-cell
+              >
+              <mat-cell class="cell-phone_number cell-metric" *matCellDef="let item">
+                {{ item?.phone | phone:'US' }}
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email_address">
+            <mat-header-cell class="cell-email_address cell-metric" *matHeaderCellDef
+              >Email Address</mat-header-cell
+            >
+            <mat-cell class="cell-email_address cell-metric" *matCellDef="let item">
+              {{ item?.email_address }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="file_type">
+            <mat-header-cell class="cell-email_address cell-metric" *matHeaderCellDef
+              >File Type</mat-header-cell
+            >
+            <mat-cell class="cell-email_address cell-metric" *matCellDef="let item">
+              {{ item?.file_type | titlecase }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="created_at">
+            <mat-header-cell class="cell-created_at cell-metric" *matHeaderCellDef
+              >Created At</mat-header-cell
+            >
+            <mat-cell class="cell-created_at cell-metric" *matCellDef="let item">
+              {{ item?.created_at | date:'MM-dd-yyy hh:mm a' }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell class="cell-actions" *matHeaderCellDef>Actions</mat-header-cell>
+            <mat-cell class="cell-created_at cell-metric" *matCellDef="let item">
+              <span *ngIf="item.status != null" matTooltip="Click to download a file"><mat-icon (click)="getCreditApplication(item.id, 'download')">download</mat-icon> </span> </mat-cell>
+          </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="columnHeaders; sticky: true"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnHeaders"></mat-row>
+          </table>
+	</div>
+	</div>
+	</td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+	<tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+		class="example-element-row"
+		[class.example-expanded-row]="expandedElement === element"
+		(click)="expandedElement = expandedElement === element ? null : element; loadTable(element, expandedElement);">
+	</tr>
+	<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>

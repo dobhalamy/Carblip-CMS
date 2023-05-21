@@ -1,0 +1,90 @@
+<div class="detail-information-wrapper">
+    <mat-card *ngIf="isReady">
+        <mat-card-title class="">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+                <div fxFlex="70" class="pr-1 text-text">
+                    <div class="card-title-text">{{cmsuser.full_name}}'s Detail</div>
+                </div>
+                <div fxFlex="10" class="pr-1 text-right">
+                    <ng-container *ngIf="indirectShowDeleteButton()">
+                        <button mat-button color="primary" class="back-button" type="button"
+                            [ngClass]="{'mat-button': !raised,'mat-raised-button': !raised }"
+                            (click)="indirectDeleteDialogBox()">
+                            {{"DELETE" | translate}}
+                        </button>
+                    </ng-container>
+                </div>
+                <div fxFlex="10" class="pr-1 text-right">
+                    <ng-container *ngIf="indirectShowEditButton()">
+                        <button mat-button color="primary" class="back-button" type="button"
+                            [ngClass]="{'mat-button': !raised,'mat-raised-button': !raised }"
+                            (click)="indirectEditDialogBox()">
+                            {{"EDIT" | translate}}
+                        </button>
+                    </ng-container>
+                </div>
+                <div fxFlex="10" class="pr-1 text-right">
+                    <app-back-button color="primary">{{"BACK" | translate }}</app-back-button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-title>
+        <mat-card-content class="mt-1">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" name="first_name" [value]="cmsuser?.first_name" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput type="text" name="last_name" [value]="cmsuser?.last_name" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" name="email" [value]="cmsuser?.email" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Role</mat-label>
+                        <input matInput type="text" name="role" [value]="getRoleName(cmsuser?.roles[0]?.name)"
+                            disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Location</mat-label>
+                        <input matInput type="text" name="location" [value]="cmsuser?.location?.name" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Promo Code</mat-label>
+                        <input matInput type="text" name="promo_code" [value]="cmsuser?.promo_code" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="pt-16">
+                <h2>History</h2>
+                <ul class="log-ul">
+                    <li *ngFor="let log of logs;let i = index">
+                        Version
+                        {{(logPagination.length)-((logPagination.pageSize*(logPagination.pageIndex+1))-logPagination.pageSize+i)}}
+                        -
+                        <span [innerHTML]="log.content"></span>
+                        on {{ log.created_at | date:'MM/dd/yyy \'at\' hh:mm a' }}
+                    </li>
+                </ul>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

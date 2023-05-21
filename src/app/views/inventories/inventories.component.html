@@ -1,0 +1,121 @@
+<mat-card>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between flex-start" class="margin-333 pb-1">
+        <div fxFlex="70" class="filter-div">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header class="mat-bg-primary">
+                    <mat-panel-title>
+                    Filter
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <form [formGroup]="filterForm" (ngSubmit)="filterSubmit()">
+                    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                        <!-- <div fxFlex="100"  class="pr-1">
+                            <app-carblip-calendar [dateRange]="daterrange" (onChange)="onCalendarChange($event)"></app-carblip-calendar>
+                        </div> -->
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Dealer</mat-label>
+                                <mat-select [formControl]="filterForm.controls['dealer']" #dealerSelect>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="dealerFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option *ngFor="let item of filteredDealers" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Year</mat-label>
+                                <mat-select [formControl]="filterForm.controls['year']" #yearSelect>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="yearFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option *ngFor="let item of filteredYears" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Make</mat-label>
+                                <mat-select [formControl]="filterForm.controls['make']" #makeSelect (selectionChange)="onMakeFilterChange($event.value)">
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="makeFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option *ngFor="let item of filteredMakes" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Model</mat-label>
+                                <mat-select [formControl]="filterForm.controls['model']" #modelSelect (selectionChange)="onModelFilterChange($event.value)">
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="modelFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option *ngFor="let item of filteredModels" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="50"  class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Trim</mat-label>
+                                <mat-select [formControl]="filterForm.controls['trim']" #trimSelect>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="trimFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option *ngFor="let item of filteredTrims" [value]="item.id">
+                                        {{item.desc}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100" fxLayoutAlign="flex-end center"  class="pr-1">
+                            <button mat-raised-button color="primary">Run <mat-icon>directions_run</mat-icon></button>
+                        </div>
+                    </div>
+                </form>
+            </mat-expansion-panel>
+        </div>
+        <div fxFlex="30" class="text-right">
+            <div>
+                <mat-form-field>
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input matInput type="text" name="searchSource" placeholder="Search here" [(ngModel)]="search" #searchInput />
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button *ngIf="isResetAvailable()"  (click)="onResetFilter()" color="warn">Reset<mat-icon>clear</mat-icon></button>
+                <!-- <button mat-raised-button color="primary">Export <mat-icon>import_export</mat-icon></button> -->
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between flex-start" class="margin-333 pb-1">
+        <div fxFlex="100" class="text-right" *ngIf="showRefreshButton()">
+            <div>
+                <button mat-raised-button color="primary" (click)="onRefresh()">Refresh Data <mat-icon>refresh</mat-icon></button>
+            </div>
+        </div>
+    </div>
+    <mat-progress-bar *ngIf="(fetching$ | async)" mode="indeterminate"></mat-progress-bar>
+    <app-inventories-table class="display-block w-100 list-table"></app-inventories-table>
+    <mat-paginator
+        #paginator
+        [length]="tablePagination.length"
+        [pageSize]="tablePagination.pageSize"
+        [pageIndex]="tablePagination.pageIndex"
+        [pageSizeOptions]="[20, 50, 100]"
+        [showFirstLastButtons]="true"
+        (page)="onPaginateChange($event)"
+    >
+    </mat-paginator>
+</mat-card>

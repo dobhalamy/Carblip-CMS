@@ -1,0 +1,28 @@
+<table class="w-100" mat-table *ngIf="dealstages" [dataSource]="dealstages" matSort (matSortChange)="sortData($event)">
+    <ng-container matColumnDef="srNo" sticky>
+        <mat-header-cell class="cell-srno" *matHeaderCellDef
+            >Sr #</mat-header-cell
+        >
+        <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+            <a href="javascript:;">
+                {{ offset + i }}
+            </a>
+        </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="name">
+        <mat-header-cell class="cell-name cell-metric" *matHeaderCellDef mat-sort-header
+            >Name</mat-header-cell
+        >
+        <mat-cell class="cell-name cell-metric" *matCellDef="let item">
+            {{ item.label }}
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row
+        *matHeaderRowDef="columnHeaders; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && dealstages.length === 0">No Records Found!</div>
+  

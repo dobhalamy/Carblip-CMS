@@ -1,0 +1,20 @@
+<mat-card>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-end center" class="margin-333">
+        <mat-form-field>
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput type="text" name="searchSource" placeholder="Search here" [(ngModel)]="search" #searchInput />
+        </mat-form-field>
+    </div>
+    <mat-progress-bar *ngIf="(fetching$ | async)" mode="indeterminate"></mat-progress-bar>
+    <app-wholesale-quote-table class="display-block w-100 list-table"></app-wholesale-quote-table>
+    <mat-paginator
+        #paginator
+        [length]="tablePagination.length"
+        [pageSize]="tablePagination.pageSize"
+        [pageIndex]="tablePagination.pageIndex"
+        [pageSizeOptions]="[20, 50, 100]"
+        [showFirstLastButtons]="true"
+        (page)="onPaginateChange($event)"
+    >
+    </mat-paginator>
+</mat-card>

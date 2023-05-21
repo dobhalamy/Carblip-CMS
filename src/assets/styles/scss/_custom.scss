@@ -1,0 +1,92 @@
+.list-table {
+  overflow-x: auto;
+}
+
+.file-upload-block {
+  min-width: 480px;
+  &__icon-group {
+    cursor: pointer;
+  }
+  &__upload-icon {
+    font-size: 100px;
+    width: 100px !important;
+  }
+  &__title {
+    display: block;
+    margin-top: -15px;
+    font-weight: bold;
+  }
+  &__file {
+    display: none;
+  }
+  &__detail-group {
+    span {
+      display: block;
+    }
+  }
+}
+
+.timepicker-dial__control {
+  outline: none !important;
+}
+
+.carrier-black-list-card {
+  margin: 0px;
+  .mat-card-header-text {
+    margin: 0 !important;
+  }
+  mat-card-title {
+    margin: 0 !important;
+  }
+  .mat-form-field-infix {
+    padding-top: 0 !important;
+  }
+}
+
+.egret-blue .mat-input-element:disabled{
+  color: rgba(0,0,0,0.8) !important;
+}
+
+.modal-body-inner-wrapper {
+  max-height: 80vh;
+  overflow: scroll;
+}
+
+.statistics-table {
+  overflow-x: auto;
+}
+
+mat-slider.custom {
+  height: 0px;
+  .mat-slider-wrapper {
+    height: 2px;
+    right: 0px;
+    top: 5px;
+    left: 0px;
+  }
+}
+.phone-input {
+  .mat-form-field-prefix {
+    padding-right: 5px;
+  }
+}
+
+.mat-row {
+  min-height: 32px !important;
+  .mat-cell {
+    word-break: break-all;
+  }
+  .mat-icon-button {
+    height: 32px !important;
+    width: 32px !important;
+    line-height: 32px !important;
+  }
+}
+.mat-select-search-no-entries-found {
+  color: #fff !important;
+}
+
+.danger-snack {
+  background-color: #f44336 !important;
+  color: #fff !important;
+}

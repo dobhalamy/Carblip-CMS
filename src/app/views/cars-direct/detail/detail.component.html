@@ -1,0 +1,276 @@
+<div class="detail-information-wrapper">
+    <mat-card *ngIf="isReady">
+        <mat-card-title class="">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+                <div fxFlex="50" class="pr-1 text-text">
+                    <!-- <div class="card-title-text">CarsDirect #{{request.cars_direct_id}} Detail</div> -->
+                </div>
+                <div fxFlex="50" class="pr-1 text-right">
+                    <app-back-button color="primary">{{"BACK" | translate }}</app-back-button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-title>
+        <mat-card-content class="mt-1">
+            <h2 class="text-center title">Customer</h2>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>First Name</mat-label>
+                        <input matInput type="text" name="first_name" [value]="carsData?.first_name" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Middle Name</mat-label>
+                        <input matInput type="text" name="middle_name" [value]="carsData?.middle_name" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>last Name</mat-label>
+                        <input matInput type="text" name="last_name" [value]="carsData?.last_name" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" name="email" [value]="carsData?.email" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Email Preferred Contact</mat-label>
+                        <input matInput type="text" name="email_preferred_contact" [value]="carsData?.email_preferred_contact" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone</mat-label>
+                        <input matInput type="text" name="phone" [value]="carsData?.phone | phone:'US'" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone Preferred Contact</mat-label>
+                        <input matInput type="text" name="phone_preferred_contact" [value]="carsData?.phone_preferred_contact" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone Preferred Time</mat-label>
+                        <input matInput type="text" name="phone_preferred_time" [value]="carsData?.phone_preferred_time" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone Preferred Type</mat-label>
+                        <input matInput type="text" name="phone_preferred_type" [value]="carsData?.phone_preferred_type" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Street</mat-label>
+                        <input matInput type="text" name="street" [value]="carsData?.street" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Appartment</mat-label>
+                        <input matInput type="text" name="apartment" [value]="carsData?.apartment" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>City</mat-label>
+                        <input matInput type="text" name="city" [value]="carsData?.city" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Region Code</mat-label>
+                        <input matInput type="text" name="regioncode" [value]="carsData?.regioncode" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Postal Code</mat-label>
+                        <input matInput type="text" name="postalcode" [value]="carsData?.postalcode" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Timeframe</mat-label>
+                        <input matInput type="text" name="timeframe" [value]="carsData?.timeframe" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Contact Owner</mat-label>
+                        <input matInput type="text" name="contact_owner_email" [value]="carsData?.contact_owner_email" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <h2 class="text-center title">Vendor</h2>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Vendor</mat-label>
+                        <input matInput type="text" name="vendor" [value]="carsData?.vendor" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <h2 class="text-center title">Provider</h2>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Provider Id</mat-label>
+                        <input matInput type="text" name="provider_id" [value]="carsData?.provider_id" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Provider Source</mat-label>
+                        <input matInput type="text" name="provider_source" [value]="carsData?.provider_source" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Provider Name</mat-label>
+                        <input matInput type="text" name="provider_name" [value]="carsData?.provider_name" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Provider Service</mat-label>
+                        <input matInput type="text" name="provider_service" [value]="carsData?.provider_service" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Provider Url</mat-label>
+                        <input matInput type="text" name="provider_url" [value]="carsData?.provider_url" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <h2 class="text-center title">Vehicle</h2>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Request date</mat-label>
+                        <input matInput type="text" name="request_date" [value]="carsData?.request_date | date:'MM-dd-yyy hh:mm a'" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Vehicle Interest</mat-label>
+                        <input matInput type="text" name="vehicle_interest" [value]="carsData?.vehicle_interest" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Vehicle Status</mat-label>
+                        <input matInput type="text" name="vehicle_status" [value]="carsData?.vehicle_status" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Vehicle id</mat-label>
+                        <input matInput type="text" name="vehicle_id" [value]="carsData?.vehicle_id" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Source</mat-label>
+                        <input matInput type="text" name="source" [value]="carsData?.source" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Year</mat-label>
+                        <input matInput type="text" name="year" [value]="carsData?.year" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Make</mat-label>
+                        <input matInput type="text" name="make" [value]="carsData?.make" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Model</mat-label>
+                        <input matInput type="text" name="model" [value]="carsData?.model" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Trim</mat-label>
+                        <input matInput type="text" name="trim" [value]="carsData?.trim" disabled />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Exterior Color</mat-label>
+                        <input matInput type="text" name="exterior_colors" [value]="carsData?.exterior_colors" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Interior Color</mat-label>
+                        <input matInput type="text" name="interior_colors" [value]="carsData?.interior_colors" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Preference</mat-label>
+                        <input matInput type="text" name="preference" [value]="carsData?.preference" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Invoice</mat-label>
+                        <input matInput type="text" name="invoice" [value]="carsData?.invoice" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Msrp</mat-label>
+                        <input matInput type="text" name="msrp" [value]="carsData?.msrp" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Quote</mat-label>
+                        <input matInput type="text" name="quote" [value]="carsData?.quote" disabled />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Finance Method</mat-label>
+                        <input matInput type="text" name="finance_method" [value]="carsData?.finance_method" disabled />
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- <div class="pt-16">
+                <h2>History</h2>
+                <ul class="log-ul">
+                    <li *ngFor="let log of logs">
+                        <span [innerHTML]="log.content"></span>
+                        {{ log.created_at | date:'MM-dd-yyy hh:mm a' }}
+                    </li>
+                </ul>
+            </div> -->
+        </mat-card-content>
+    </mat-card>
+</div>

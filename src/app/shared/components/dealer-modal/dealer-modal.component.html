@@ -1,0 +1,95 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()" autocomplete="new-dealerform">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        autocomplete="new-name"
+        name="new-name"
+        [formControl]="itemForm.controls['name']"
+        placeholder="Name"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        autocomplete="new-street"
+        name="new-street"
+        [formControl]="itemForm.controls['street']"
+        placeholder="Street Address"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        autocomplete="new-city"
+        name="new-city"
+        [formControl]="itemForm.controls['city']"
+        placeholder="City"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        autocomplete="new-state"
+        name="new-state"
+        [formControl]="itemForm.controls['state']"
+        placeholder="State"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        autocomplete="new-zipcode"
+        name="new-zipcode"
+        [formControl]="itemForm.controls['zip_code']"
+        placeholder="ZipCode"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+    
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width phone-input">
+        <input
+        matInput
+        autocomplete="new-phone"
+        name="new-phone"
+        pattern="^\d{3}[- ]?\d{3}[- ]?\d{4}$"
+        [formControl]="itemForm.controls['phone']"
+        placeholder="Phone"
+        appPhoneNumber>
+        <span matPrefix>+1</span>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        autocomplete="new-website"
+        name="new-website"
+        [formControl]="itemForm.controls['website']"
+        placeholder="Website"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <app-button-loading loadingText="Processing..." [loading]="saving" [disabled]="itemForm.invalid" color="primary">{{saveButtonLabel | translate }}</app-button-loading>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

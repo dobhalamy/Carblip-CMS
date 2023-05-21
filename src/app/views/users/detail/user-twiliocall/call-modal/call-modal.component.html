@@ -1,0 +1,46 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<mat-card >
+  <div fxLayout="row wrap" fxLayoutAlign="flex-end center" class="margin-333" *ngIf="data.title == 'Outgoing Call'">
+      <div fxFlex="100" class="text-center pd-15">
+          {{data.callerId}}
+      </div>
+      <div fxFlex="100" class="text-center pd-15">
+        <span *ngIf="callStatus != 'in-progress'">{{ callStatus | titlecase }} <span *ngIf="callStatus != 'completed'">...</span></span>
+        <span *ngIf="callStatus == 'in-progress'">Connected</span>
+        <p *ngIf="callStatus == 'in-progress'">{{expirationCounter}}</p>
+        <!-- <p *ngIf="callStatus == 'in-progress'">{{expirationCounter}}</p> -->
+      </div>
+
+      <div fxFlex="100" class="mt-1 huangup-div pd-15">
+        <!-- <button mat-button color="info" class="connect" type="button" (click)="connectCall()">Call</button> -->
+        <button mat-button color="warn" type="button" (click)="Cancel()"><mat-icon class="reject"> call_end</mat-icon></button>
+      </div>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="flex-end center" class="margin-333" *ngIf="data.title == 'Incoming Call'">
+    <div fxFlex="100" class="text-center pd-10">
+      {{data.callerId}}
+    </div>
+    <div fxFlex="100" class="text-center pd-15">
+      <!-- <span *ngIf="callStatus == 'ringing' ">Ringing ...</span> -->
+      <span *ngIf="callStatus == 'accepted'">Connected</span>
+      <span *ngIf="callStatus == 'disconnected'">Disconnected</span>
+      <p>{{expirationCounter}}</p>
+    </div>
+
+    <div fxFlex="100" class="mt-1 huangup-div pd-10" *ngIf="callStatus != 'accepted' ">
+      <button mat-button color="info" type="button" (click)="accept()"><mat-icon class="accept"> call</mat-icon></button>
+      <button mat-button color="warn" type="button" (click)="reject()"><mat-icon class="reject"> call_end</mat-icon></button>
+    </div>
+
+    <div fxFlex="100" class="mt-1 huangup-div pd-10" *ngIf="callStatus == 'accepted'">
+      <button mat-button color="warn" type="button" (click)="disconnect()"><mat-icon class="reject"> call_end</mat-icon></button>
+    </div>
+
+
+      
+  </div>
+</mat-card>
+
+
+

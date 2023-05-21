@@ -1,0 +1,176 @@
+<div class="purchase-edit-wrapper">
+  <mat-card *ngIf="isReady">
+    <mat-card-title class="">
+      <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+        <div fxFlex="50" class="pr-1 text-left">
+          <div class="card-title-text">{{getTitle()}}</div>
+        </div>
+        <div fxFlex="50" class="pr-1 text-right">
+          <button mat-raised-button class="mr-1" color="primary" (click)="onBackClick()">{{"BACK" | translate}}</button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content class="mt-1">
+
+      <form [formGroup]="itemForm" (ngSubmit)="submit()" autocomplete="new-cmsform">
+        <div fxLayout="row wrap" fxLayout.lt-sm="column">
+          <div fxFlex="50" class="pr-1" *ngIf="isEdit">
+            <mat-form-field class="full-width">
+              <input matInput readonly autocomplete="new-purchase-order-number" name="new-purchase-order-number"
+                formControlName="purchase_order_number" placeholder="Purchase Order Number">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <mat-select formControlName="quote_id" placeholder="Quote" #singleSelect
+                (selectionChange)="onQuoteFilterChange($event.value)">
+                <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'No matches' " [formControl]="quoteFilterCtrl"
+                  [preventHomeEndKeyPropagation]="true">
+                  <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                </ngx-mat-select-search>
+                <mat-option *ngFor="let quote of filteredQuote" [value]="quote.id">
+                  {{ quote?.stock_no }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <mat-select formControlName="vendor_id" placeholder="Vendor" #vendorSelect
+                (selectionChange)="onVendorFilterChange($event.value)">
+                <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'No matches' " [formControl]="vendorFilterCtrl"
+                  [preventHomeEndKeyPropagation]="true">
+                  <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                </ngx-mat-select-search>
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let vendor of filteredVendor" [value]="vendor.id">
+                  {{ vendor?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button class="float-right" color="primary" type="button" (click)="addNewVendor()">Add
+              New</button>
+          </div>
+
+          <div fxFlex="50" class="pr-1" *ngIf="filteredVendor && filteredVendor.length && vendorId">
+            <mat-form-field class="full-width">
+              <mat-select formControlName="vendor_contact_id" placeholder="Vendor Contact" #vendorContactSelect
+                (selectionChange)="onVendorContactFilterChange($event.value)">
+                <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'No matches' " [formControl]="vendorContactFilterCtrl"
+                  [preventHomeEndKeyPropagation]="true">
+                  <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                </ngx-mat-select-search>
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let vendorContact of filteredVendorContact" [value]="vendorContact.id">
+                  {{ vendorContact?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button class="float-right" color="primary" type="button" (click)="addNewVendorContact()">Add
+              New</button>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput type="description" autocomplete="new-description" name="new-description"
+                formControlName="description" placeholder="Description">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput autocomplete="new-amount" name="new-amount" [formControl]="itemForm.controls['amount']"
+                mask="separator.2" placeholder="Amount"  thousandSeparator="," [allowNegativeNumbers]="true">
+              <span matPrefix>$&nbsp;</span>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <mat-select formControlName="request_approval_from" placeholder="Request Approval"
+                #singleSelect (selectionChange)="onRequestApprovalFilterChange($event.value)">
+                <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'No matches' " [formControl]="requestApprovalFilterCtrl"
+                  [preventHomeEndKeyPropagation]="true">
+                  <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                </ngx-mat-select-search>
+                <mat-option *ngFor="let requestApproval of filteredRequestApproval" [value]="requestApproval.id">
+                  {{ requestApproval?.first_name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <mat-select formControlName="category" placeholder="Category " #singleSelect>
+                <mat-option value="customer">Customer </mat-option>
+                <mat-option value="office">Office</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input autocomplete="off" matInput name="payment_date" [matDatepicker]="payment_date"
+                placeholder="Payment Date" formControlName="payment_date">
+              <mat-datepicker-toggle matSuffix [for]="payment_date"></mat-datepicker-toggle>
+              <mat-datepicker #payment_date></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pt-5" *ngIf="isAllowUpdate">
+            <div fxFlex="100" class="mt-1">
+              <mat-checkbox name="approved" formControlName="approved" class="pb-1">Approve
+              </mat-checkbox>
+            </div>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+          </div>
+      
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+            <div fxFlex="100" class="mt-1 text-center">
+              <button mat-raised-button color="primary" [disabled]="saving">{{(isEdit ? "SAVE" : "CREATE") | translate
+                }}</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <div class="pt-16" *ngIf="isEdit">
+      <h2>History</h2>
+      <ul class="log-ul">
+        <li *ngFor="let history of showHistory let i=index">
+          <span *ngIf="history.content !== 'created purchase-order'">
+            Version 
+            {{(logPagination.length)-((logPagination.pageSize*(logPagination.pageIndex+1))-logPagination.pageSize+i)}} -
+            {{history.cms_user_name}} made updates on
+            {{history.created_at | date:'MM/dd/yy'}} at
+            {{history.created_at | date:'h:mm a'}}
+          </span>
+          <span *ngIf="history.content == 'created purchase-order'">
+            Version 
+            {{(logPagination.length)-((logPagination.pageSize*(logPagination.pageIndex+1))-logPagination.pageSize + i)}} -
+            {{history.cms_user_name}} {{history.content}} on
+            {{history.created_at | date:'MM/dd/yy'}} at
+            {{history.created_at | date:'h:mm a'}}
+          </span>
+          <p *ngIf="history.content !== 'created purchase-order'" [innerHtml]="history.content">
+          </p>
+        </li>
+      </ul>
+      <mat-paginator #paginator [length]="logPagination.length" [pageSize]="logPagination.pageSize"
+        [pageIndex]="logPagination.pageIndex" [pageSizeOptions]="[10,20, 50, 100]" [showFirstLastButtons]="true"
+        (page)="onLogPaginateChange($event)">
+      </mat-paginator>
+    </div>
+  </mat-card>
+</div>

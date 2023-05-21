@@ -1,0 +1,53 @@
+<table class="w-100" mat-table *ngIf="requests" matSortActive={{sortKey}} matSortDirection={{sortDirection}} matSortDisableClear [dataSource]="requests" matSort (matSortChange)="sortData($event)">
+    <ng-container matColumnDef="srNo" sticky>
+        <mat-header-cell class="cell-srno" *matHeaderCellDef>Sr #</mat-header-cell>
+        <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+            <a href="javascript:;">
+                {{ offset + i }}
+            </a>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+        <mat-header-cell class="cell-first_name cell-metric" *matHeaderCellDef mat-sort-header>Phone
+        </mat-header-cell>
+        <mat-cell class="cell-first_name cell-metric" *matCellDef="let item">
+            {{ item?.phone }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="count">
+        <mat-header-cell class="cell-last_name cell-metric" *matHeaderCellDef mat-sort-header> Count
+        </mat-header-cell>
+        <mat-cell class="cell-last_name cell-metric" *matCellDef="let item">
+            {{ item?.count }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+        <mat-header-cell class="cell-year cell-metric" *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
+        <mat-cell class="cell-year cell-metric" *matCellDef="let item">
+            {{ item?.created_at | date:'MM-dd-yyy hh:mm a'}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updated_at">
+        <mat-header-cell class="cell-brand cell-metric" *matHeaderCellDef mat-sort-header>Updated Date</mat-header-cell>
+        <mat-cell class="cell-brand cell-metric" *matCellDef="let item">
+            {{ item?.updated_at | date:'MM-dd-yyy hh:mm a' }}
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-actions" *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell class="cell-actions" *matCellDef="let item" (click)="$event.stopPropagation();">
+            <button mat-icon-button (click)="onDelete(item)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <!-- <button mat-icon-button *ngIf="showDeleteButton(item)" (click)="onDelete(item)"><mat-icon>delete</mat-icon></button> -->
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnHeaders; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && requests.length === 0">No Records Found!</div>

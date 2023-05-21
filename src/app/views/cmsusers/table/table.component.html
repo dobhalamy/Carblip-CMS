@@ -1,0 +1,85 @@
+<table class="w-100" mat-table *ngIf="cmsusers" [dataSource]="cmsusers" matSortActive={{sortKey}} matSortDirection={{sortDirection}} matSort (matSortChange)="sortData($event)">
+    <ng-container matColumnDef="srNo" sticky>
+        <mat-header-cell class="cell-srno" *matHeaderCellDef>Sr #</mat-header-cell>
+        <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+            <a href="javascript:;">
+                {{ offset + i }} 
+            </a>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="first_name">
+        <mat-header-cell class="cell-first_name cell-metric" *matHeaderCellDef mat-sort-header>First Name
+        </mat-header-cell>
+        <mat-cell class="cell-first_name cell-metric" *matCellDef="let item">
+            {{ item.first_name}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+        <mat-header-cell class="cell-last_name cell-metric" *matHeaderCellDef mat-sort-header>Last Name
+        </mat-header-cell>
+        <mat-cell class="cell-last_name cell-metric" *matCellDef="let item">
+            {{ item.last_name}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <mat-header-cell class="cell-email cell-metric" *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+        <mat-cell class="cell-email cell-metric" *matCellDef="let item">
+            {{ item?.email}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+        <mat-header-cell class="cell-role cell-metric" *matHeaderCellDef>Role</mat-header-cell>
+        <mat-cell class="cell-role cell-metric" *matCellDef="let item">
+            {{ getRoleName(item?.roles[0]?.name) }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+        <mat-header-cell class="cell-location cell-metric" *matHeaderCellDef>Location</mat-header-cell>
+        <mat-cell class="cell-location cell-metric" *matCellDef="let item">
+            {{ item?.location?.name }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="roundrobin">
+        <mat-header-cell class="cell-roundrobin cell-metric" *matHeaderCellDef>RoundRobin</mat-header-cell>
+        <mat-cell class="cell-roundrobin cell-metric" *matCellDef="let item" (click)="$event.stopPropagation();">
+            <mat-checkbox *ngIf="showRRCheckbox(item)" (click)="onRRApply(item)" [(ngModel)]="item.roundrobin">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="is_active">
+        <mat-header-cell class="cell-is_active cell-metric" *matHeaderCellDef mat-sort-header>Active</mat-header-cell>
+        <mat-cell class="cell-is_active cell-metric" *matCellDef="let item" (click)="$event.stopPropagation();">
+            <mat-slide-toggle *ngIf="showToggle(item)" [checked]="item.is_active ? true : false"
+                (change)="toggleIsUserActive($event, item)">
+            </mat-slide-toggle>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-actions" *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell class="cell-actions" *matCellDef="let item" (click)="$event.stopPropagation();">
+            <button mat-icon-button routerLink="./{{item.id}}">
+                <mat-icon>remove_red_eye</mat-icon>
+            </button>
+            <ng-container *ngIf="edit_delete_permission">
+                <button *ngIf="showAction(item)" mat-icon-button (click)="onEdit(item)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button *ngIf="showAction(item)" mat-icon-button (click)="onDelete(item)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </ng-container>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnHeaders; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders" routerLink="./{{row.id}}"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && cmsusers.length === 0">No Records Found!</div>

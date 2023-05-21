@@ -1,0 +1,62 @@
+
+<mat-card class="profile-sidebar mb-1">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="100"  class="pr-1 pb-1">
+            <mat-form-field class="full-width">
+                <input
+                matInput
+                name="name"
+                placeholder="First Name"
+                disabled
+                value="{{userProfile?.first_name}}">
+            </mat-form-field>
+        </div>
+        <div fxFlex="100"  class="pr-1 pb-1">
+            <mat-form-field class="full-width">
+                <input
+                matInput
+                name="name"
+                placeholder="Last Name"
+                disabled
+                value="{{userProfile?.last_name}}">
+            </mat-form-field>
+        </div>
+        <div fxFlex="100"  class="pr-1 pb-1">
+            <mat-form-field class="full-width">
+                <input
+                matInput
+                name="name"
+                placeholder="Email"
+                disabled
+                value="{{userProfile?.email}}">
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="100"  class="pr-1 pb-1">
+            <mat-form-field class="full-width">
+                <input
+                matInput
+                name="name"
+                placeholder="Location"
+                disabled
+                [value]="getLocation()">
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="100"  class="pr-1 pb-1">
+            <mat-form-field class="full-width">
+                <input
+                matInput
+                name="name"
+                placeholder="Role"
+                disabled
+                [value]="getRole()">
+            </mat-form-field>
+        </div>
+        <div fxFlex="100"  class="pr-1">
+            <div class="text-right">
+                <a mat-raised-button color="primary" [routerLink]="['/profile/edit']">Edit</a>
+            </div>
+        </div>
+    </div>
+</mat-card>

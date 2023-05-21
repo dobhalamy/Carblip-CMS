@@ -1,0 +1,58 @@
+<div class="accordians" [ngClass]="showEditor ? 'with-editor' : 'without-editor'"  > 
+  <mat-accordion *ngFor="let item of zimbraMails; let i=index;">
+    <mat-expansion-panel (opened)="showinboxmsg(item, i) ; panelState = i;" (closed)="closePanel()" [expanded]="panelState == i">
+      <mat-expansion-panel-header>
+        <mat-panel-description>
+          <mat-list>
+            <mat-list-item>
+              <h3 [ngClass]="item.status == 0 ? 'high-text': ''" class="tag name-head">
+                <mat-icon>person</mat-icon> {{item.user_name}}
+              </h3>
+            </mat-list-item>
+
+            <mat-list-item *ngIf="item.display">
+              <h3 [ngClass]="item.status == 0 ? 'high-text': ''" class="tag name-head">
+                <span *ngIf = "item.type == 'Received'"><mat-icon>mail</mat-icon></span>&nbsp;&nbsp;{{item.msg}}...
+              </h3>
+            </mat-list-item>
+          </mat-list>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngIf="item?.threads?.msg">
+        <mat-list>
+          <mat-list-item>
+            <h3 [ngClass]="item.status == 0 ? 'high-text': ''" class="tag">From : {{item.from}}</h3>
+          </mat-list-item>
+
+          <mat-list-item>
+            <h3 [ngClass]="item.status == 0 ? 'high-text': ''" class="tag">To : {{item.to}}</h3>
+          </mat-list-item>
+        </mat-list>
+
+        <p>Message</p>
+        <p>{{item?.threads?.msg}}</p>
+      </div>
+      <div *ngIf="item?.threads?.attachment" class="download-box">
+        <mat-icon id="attachment-icon"> attach_file</mat-icon> 
+        <a *ngFor="let attachmentfiles of item?.threads?.file_name; let fileindex=index">
+          <span (click)="onClickDownloadPdf(item.id,fileindex)"> {{attachmentfiles?.documentname}}</span> ||
+        </a> 
+      </div>
+        <a *ngIf = "item?.threads?.msg" (click)="openEditor()" id="reply-text">Reply</a>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+
+<div *ngIf="showEditor" class="footer-area">
+  <form [formGroup]="replyToMessageForm">
+    <ckeditor [editor]="Editor" formControlName="message" data="" height="400"></ckeditor>
+    <div class="selectFileInput pr-1 editor" id="select-file">
+      <file-uploader (getUploadDetails)="fileUploadDetails($event)"  [userDetails]="userInfo"></file-uploader>
+    </div>
+    <div class="buttons">
+      <button mat-flat-button color="primary" (click)="onSend()">Send</button>
+      <button class="cancel-btn" mat-flat-button color="primary" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

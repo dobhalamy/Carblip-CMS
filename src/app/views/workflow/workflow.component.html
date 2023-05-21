@@ -1,0 +1,12 @@
+<div class="m-333 text-right">
+  <button mat-raised-button class="mr-05" color="primary" routerLink="/workflow/create" >{{"ADD" | translate }} {{"NEW" | translate }}</button>
+</div>
+<mat-card>
+
+  <app-workflow-table class="display-block w-100 list-table"></app-workflow-table>
+  <!-- <app-cmsusers-table class="display-block w-100 list-table"></app-cmsusers-table>
+  <mat-paginator #paginator [length]="tablePagination.length" [pageSize]="tablePagination.pageSize"
+      [pageIndex]="tablePagination.pageIndex" [pageSizeOptions]="[20, 50, 100]" [showFirstLastButtons]="true"
+      (page)="onPaginateChange($event)">
+  </mat-paginator> -->
+</mat-card>

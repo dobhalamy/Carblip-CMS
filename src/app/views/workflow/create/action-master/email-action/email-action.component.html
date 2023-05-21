@@ -1,0 +1,24 @@
+<!-- <div class="vl"> <mat-icon (click)="action()">add_circle_outline</mat-icon></div> -->
+<!-- EMAIL ACTION SECTION -->
+
+  <mat-card>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+      <div fxFlex="100" class="pr-1 box-title">
+        <h4>
+          {{data.action.value}} 
+          <mat-icon class="icons close">cancel</mat-icon> 
+          <mat-icon class="icons edit">edit</mat-icon>
+        </h4>
+      </div>
+
+      <div fxFlex="100" class="box">
+        <span class="box-h">
+          <b>{{ data.email.value }}</b>
+        </span>
+      </div>
+    </div>
+  </mat-card>
+<div class="vl"> <mat-icon (click)="action(data)">add_circle_outline</mat-icon></div>
+<ng-template #email_action>
+
+</ng-template>

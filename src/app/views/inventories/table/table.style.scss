@@ -1,0 +1,47 @@
+.mat-header-cell,
+.mat-cell {
+  padding-right: 20px;
+}
+
+.cell-srno {
+  flex: 0 0 30px;
+}
+
+.cell-dealer {
+  flex: 0 0 80px;
+}
+
+.cell-stock_no {
+  flex: 0 0 80px;
+}
+
+.cell-year {
+  flex: 0 0 50px;
+}
+.cell-make {
+  flex: 0 0 100px;
+}
+
+.cell-model {
+  flex: 0 0 120px;
+}
+
+.cell-model_number {
+  flex: 0 0 100px;
+}
+
+.cell-invoice {
+  flex: 0 0 100px;
+}
+
+.cell-interior_color,
+.cell-exterior_color {
+  flex: 0 0 150px;
+}
+.cell-option {
+  flex: 0 0 100px;
+}
+
+.cell-actions {
+  flex: 0 0 50px;
+}

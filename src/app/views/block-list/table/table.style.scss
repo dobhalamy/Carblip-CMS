@@ -1,0 +1,26 @@
+.cell-srno {
+  flex: 0 0 60px;
+}
+
+.cell-first_name,
+.cell_last_name {
+  flex: 0 0 150px;
+}
+
+.cell-phone {
+  flex: 0 0 150px;
+}
+
+.cell-contact_owner {
+  flex: 0 0 150px;
+}
+
+.cell-actions {
+  flex: 0 0 100px;
+}
+.mat-table{
+  overflow-x: scroll;
+}
+.mat-table .mat-header-cell{
+  width: 150px;
+}

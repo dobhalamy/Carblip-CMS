@@ -1,0 +1,48 @@
+<div class="m-333 text-right" *ngxPermissionsOnly="['create', 'create_local']">
+    <button mat-raised-button class="mr-05" color="primary" (click)="onAddItem()">{{"ADD" | translate }} {{"NEW" |
+        translate }}</button>
+</div>
+<mat-card>
+    <div fxLayout="row wrap" fxLayoutAlign="flex-end center" class="margin-333">
+        <div fxFlex="70" class="filter-div">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header class="mat-bg-primary">
+                    <mat-panel-title>
+                    Filter
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <form [formGroup]="filterForm" (ngSubmit)="filterSubmit()">
+                    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                        <div fxFlex="70"  class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Roles</mat-label>
+                                <mat-select #cmsUsersSelect multiple formControlName="roles">
+                                    <mat-option (click)="checkAllSource()" [value]="0">All</mat-option>
+                                    <mat-option [disabled]="disableAllOptionInSource" *ngFor="let role of roles" [value]="role.id">
+                                        {{role.label}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                    
+        <div fxFlex="30" class="text-right">
+            <mat-form-field>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput type="text" name="searchLogSource" placeholder="Search here" [(ngModel)]="logSearch"
+                    #searchLogInput />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="margin-333">
+        <mat-progress-bar *ngIf="(logFetching$ | async)" mode="indeterminate"></mat-progress-bar>
+        <ul class="log-ul">
+            <li *ngFor="let log of logs">
+                <span [innerHTML]="log.content"></span>
+                on {{ log.created_at | date:'MM/dd/yyy \'at\' hh:mm a'}}
+            </li>
+        </ul>
+    </div>
+    <mat-paginator #paginator [length]="logPagination.length" [pageSize]="logPagination.pageSize"
+        [pageIndex]="logPagination.pageIndex" [pageSizeOptions]="[20, 50, 100]" [showFirstLastButtons]="true"
+        (page)="onLogPaginateChange($event)">
+    </mat-paginator>
+</mat-card>

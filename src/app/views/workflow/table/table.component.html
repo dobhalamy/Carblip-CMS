@@ -1,0 +1,60 @@
+<mat-card>
+
+  <mat-card-content class="mt-1">
+    <mat-table [dataSource]="data">
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Name
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <span>{{ item.title}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Type
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <span>{{ item.type}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="created_at">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Created At
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <span>{{ item?.created_date | date:'MM-dd-yyy hh:mm a' }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updated_at">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Updated At
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <span>{{ item?.updated_at | date:'MM-dd-yyy hh:mm a' }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Actions
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <button mat-icon-button routerLink="/workflow/{{item.id}}">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnHeaders; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnHeaders"></mat-row>
+    </mat-table>
+
+    <div class="text-center margin-333" *ngIf="(didFetch$ | async) && data.length === 0">No Records Found!</div>
+
+    <mat-paginator [length]="totalRecords" [pageSize]="10" [pageSizeOptions]="[5,10,15,50]" aria-label="Select page"
+      [showFirstLastButtons]="true" (page)="onLogPaginateChange($event)">
+    </mat-paginator>
+
+  </mat-card-content>
+
+</mat-card>

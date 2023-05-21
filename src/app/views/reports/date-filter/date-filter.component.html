@@ -1,0 +1,27 @@
+<mat-form-field class="mr-1">
+  <mat-label>Select predefined range</mat-label>
+  <mat-select
+      [(ngModel)]="selectedDate"
+      (selectionChange)="onPredefinedDateRangeChange()">
+    <mat-option *ngFor="let range of rangeOptions" [(value)]="range.value">{{range.value}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field *ngIf="showCalendar">
+  <input matInput readonly
+         placeholder="Select custom range"
+         [satDatepicker]="picker"
+         [(ngModel)]="calendarDateRange"
+         (ngModelChange)="onCustomDateRangeChange()"
+         (focus)="picker.open()">
+  <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
+  <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+</mat-form-field>
+<mat-form-field class="mr-1" [ngClass]="showCalendar ? 'move-left' : '' ">
+  <mat-label>Select view</mat-label>
+  <mat-select
+      [(value)]="type" (selectionChange)="changeViewType()">
+    <mat-option value="D">Day</mat-option>
+    <mat-option value="W">Weeks</mat-option>
+    <mat-option value="M">Month</mat-option>
+  </mat-select>
+</mat-form-field>

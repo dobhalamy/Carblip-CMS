@@ -1,0 +1,526 @@
+<div class="detail-information-wrapper">
+    <mat-card  *ngIf="isReady">
+        <mat-card-title class="">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+                <div fxFlex="50" class="pr-1 text-text">
+                    <div class="card-title-text">Request #{{request.order_number}} Detail</div>
+                </div>
+                <div fxFlex="50" class="pr-1 text-right">
+                    <app-back-button color="primary">{{"BACK" | translate }}</app-back-button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-title>
+        <mat-card-content class="mt-1">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" >
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Registered User</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="registered_user"
+                            style="display: none"
+                            [value]=""
+                            disabled
+                        />
+                        <a [routerLink]= "['/users', request?.user_id]" class="mat-color-accent">{{request?.full_name}}</a>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" >
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Year</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="year"
+                            [value]="request?.year"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Make</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="make"
+                            [value]="request?.brand"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Model</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="model"
+                            [value]="request?.model"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Trim</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="trim"
+                            [value]="request?.trim"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Exterior Color</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="exterior_color"
+                            [value]="request?.exterior_color.join(',')"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Interior Color</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="interior_color"
+                            [value]="request?.interior_color.join(',')"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>MSRP</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="msrp"
+                            [value]="request?.price | currency"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Order/Request Number</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="order_number"
+                            [value]="request?.order_number"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Request Time</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="request_time"
+                            [value]="request?.request_time | date:'MM-dd-yyy hh:mm a'"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Self Assessed Credit Score</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="credit_score"
+                            [value]="request?.credit_score"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Purchase timeframe</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="purchase_timeframe"
+                            [value]="request?.buying_time"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Purchase preference</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="purchase_preference"
+                            [value]="request?.buying_method"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Terms</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="terms"
+                            [value]="request?.terms"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Referral Code</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="referral_code"
+                            [value]="request?.referral_code | uppercase"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Source</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="source"
+                            [value]="request?.source_utm"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>{{request?.source_utm}} Id</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="car_direct_id"
+                            [value]="request?.car_direct_id"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Style</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="style"
+                            [value]="request?.style"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Vehicle Type</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="vehicle_type"
+                            [value]="request?.vehicle_type"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Color Preference</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="color_preference"
+                            [value]="request?.color_preference"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Price Comment</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="price_comment"
+                            [value]="request?.price_comment"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Finance Method</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="finance_method"
+                            [value]="request?.finance_method"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Finance Type</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="finance_type"
+                            [value]="request?.finance_type"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Finance Amount</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="finance_amount"
+                            [value]="request?.finance_amount"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Provider Id</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="provider_id"
+                            [value]="request?.provider_id"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Provider Name</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="provider_name"
+                            [value]="request?.provider_name"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Options</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="options"
+                            [value]="request?.options.join(',')"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <div class="full-width">
+                        <mat-label class="pr-1">Is Completed?</mat-label>
+                        <mat-chip mat-sm-chip class="process-status" [color]="getBoolColor(request?.is_complete)" selected>{{request?.is_complete ? 'Yes' : 'No'}}</mat-chip>
+                    </div>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Deal Assigned to </mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="contact_owner"
+                            [value]="request?.contact_owner"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="pt-16">
+                <h2>History</h2>
+                <ul class="log-ul">
+                    <li *ngFor="let log of logs">
+                        <span [innerHTML]="log.content"></span>
+                        {{ log.created_at | date:'MM/dd/yyy \'at\' hh:mm a' }}
+                    </li>
+                </ul>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title class="">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+                <div fxFlex="50" class="pr-1 text-text">
+                    <div class="card-title-text">{{"QUOTES" | translate }}</div>
+                </div>
+                <div fxFlex="50" class="pr-1 text-right">
+                    <button mat-raised-button class="mr-05" color="primary" (click)="onAddQuote()">{{"ADD" | translate }} {{"NEW" | translate }}</button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-title>
+        <mat-card-content class="mt-1">
+            <mat-table [dataSource]="dataSource" matSort >
+                <ng-container matColumnDef="stock_no">
+                    <mat-header-cell class="cell-stock_no cell-metric" *matHeaderCellDef mat-sort-header
+                        >Stock #</mat-header-cell
+                    >
+                    <mat-cell class="cell-stock_no cell-metric" *matCellDef="let item">
+                        {{ item?.stock_no}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="first_name">
+                    <mat-header-cell class="cell-first_name cell-metric" *matHeaderCellDef mat-sort-header
+                        >First Name</mat-header-cell
+                    >
+                    <mat-cell class="cell-first_name cell-metric" *matCellDef="let item">
+                        {{ item?.first_name}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="last_name">
+                    <mat-header-cell class="cell-last_name cell-metric" *matHeaderCellDef mat-sort-header
+                        >Last Name</mat-header-cell
+                    >
+                    <mat-cell class="cell-last_name cell-metric" *matCellDef="let item">
+                        {{ item?.last_name}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="year">
+                    <mat-header-cell class="cell-year cell-metric" *matHeaderCellDef mat-sort-header
+                        >Year</mat-header-cell
+                    >
+                    <mat-cell class="cell-year cell-metric" *matCellDef="let item">
+                        {{ item?.year}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="make">
+                    <mat-header-cell class="cell-make cell-metric" *matHeaderCellDef mat-sort-header
+                        >Make</mat-header-cell
+                    >
+                    <mat-cell class="cell-make cell-metric" *matCellDef="let item">
+                        {{ item?.make | excerpt:30 }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="model">
+                    <mat-header-cell class="cell-model cell-metric" *matHeaderCellDef mat-sort-header
+                        >Model</mat-header-cell
+                    >
+                    <mat-cell class="cell-model cell-metric" *matCellDef="let item">
+                        {{ item?.model | excerpt:30 }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="drive_off">
+                    <mat-header-cell class="cell-drive_off cell-metric" *matHeaderCellDef mat-sort-header
+                        >Drive Off</mat-header-cell
+                    >
+                    <mat-cell class="cell-drive_off cell-metric" *matCellDef="let item">
+                        {{ item.drive_off ? '$ ' :''}}{{ item.drive_off | number}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="updated_at">
+                    <mat-header-cell class="cell-updated_at cell-metric" *matHeaderCellDef mat-sort-header
+                        >Created At</mat-header-cell
+                    >
+                    <mat-cell class="cell-updated_at cell-metric" *matCellDef="let item">
+                        {{ item?.updated_at | date:'MM-dd-yyy hh:mm a' }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="created_at">
+                    <mat-header-cell class="cell-created_at cell-metric" *matHeaderCellDef mat-sort-header
+                        >Updated At</mat-header-cell
+                    >
+                    <mat-cell class="cell-created_at cell-metric" *matCellDef="let item">
+                        {{ item?.updated_at | date:'MM-dd-yyy hh:mm a' }}
+                    </mat-cell>
+                </ng-container>
+              
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell class="cell-actions" *matHeaderCellDef
+                        >Actions</mat-header-cell
+                    >
+                    <mat-cell class="cell-actions" *matCellDef="let item; let i = index;" (click)="$event.stopPropagation();">
+                        <button mat-icon-button routerLink="/quotes/{{item.id}}/edit"><mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button (click)="onDelete(item, i)"><mat-icon>delete</mat-icon></button>
+                    </mat-cell>
+                </ng-container>
+              
+                <mat-header-row
+                    *matHeaderRowDef="columnHeaders; sticky: true"
+                ></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columnHeaders" routerLink="/quotes/{{row.id}}/edit"></mat-row>
+            </mat-table>
+            <div class="text-center margin-333" *ngIf="dataSource.data.length === 0">No Records Found!</div>
+              
+            <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between flex-start" class="margin-333">
+            <div fxFlex="70" class="filter-div">    
+                <h2>Quote's History</h2>
+            </div>
+        </div>
+        <div class="margin-333">
+            <ul class="log-ul1">
+                <li *ngFor="let log of quoteLogs">
+                    {{log.cms_user_name}} - 
+                    <span [innerHTML]="log.content"></span>
+                    {{ formatLogMessage(log.content) }} {{ log.created_at | date:'MM/dd/yyy \'at\' hh:mm a'}}
+                </li>
+            </ul>
+        </div>
+        <mat-paginator
+            #paginator
+            [length]="logMeta.total"
+            [pageSize]="logMeta.per_page"
+            [pageIndex]="logMeta.current_page-1"
+            [pageSizeOptions]="[20, 50, 100]"
+            [showFirstLastButtons]="true"
+            (page)="onLogPaginateChange($event)"
+        >
+        </mat-paginator>
+    </mat-card>
+</div>

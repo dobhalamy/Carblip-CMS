@@ -1,0 +1,52 @@
+<h1 matDialogTitle>{{data.title }}</h1>
+<form [formGroup]="triggerForm">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="100" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type" (selectionChange)="onTypechange($event.value)">
+          <mat-option *ngFor="let triggertype of type" [value]="triggertype.type_id">
+            {{triggertype.type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1" *ngIf="propertyList">
+      <mat-form-field class="full-width">
+        <mat-label>Property</mat-label>
+        <mat-select formControlName="property" (selectionChange)="onPropertychange($event.value)">
+          <mat-option *ngFor="let property of propertyList" [value]="property.property_id">
+            {{property.property_name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1"  *ngIf="proertyValue">
+      <mat-form-field class="full-width">
+        <mat-label>Conditions</mat-label>
+        <mat-select formControlName="condition" (selectionChange)="onConditionchange($event.value)">
+          <mat-option *ngFor="let condition of conditionList" [value]="condition.id">
+            {{condition.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1" *ngIf="conditionValue == '1' || conditionValue == '2' ">
+      <mat-form-field class="full-width">
+        <mat-label>Add Value</mat-label>
+        <input matInput type="text" formControlName="conditionvalue" placeholder="Add Value" multiple>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-button type="button" color="primary" (click)="Submit()">Save</button>
+      <button mat-button color="warn" type="button" (click)="close()">Cancel</button>
+    </div>
+
+  </div>
+
+</form>

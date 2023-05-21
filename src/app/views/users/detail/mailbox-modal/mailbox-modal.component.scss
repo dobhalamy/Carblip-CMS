@@ -1,0 +1,54 @@
+mat-form-field {
+    width: 100% !important;
+}
+
+.editor ckeditor {
+    height: 100px !important;
+    
+}
+
+.sendTo{
+    display: flex;
+}
+
+.CCIcons{
+    position: relative;
+    display: flex;
+}
+
+.CCIcons mat-icon {
+    font-size: 14px;
+    cursor: pointer;
+    float: right !important;
+    padding: 0px 5px !important;
+    position: relative;
+    top: 2em;
+    right: 2.5em  ;
+}
+
+.footer-buttons{
+    margin-top: 2em !important;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 110px !important;
+}
+
+button.mat-button.mat-primary {
+    color: #fff!important;
+    background-color: #040404;
+}
+
+button.bg.changeProfile.mat-flat-button {
+    border: 2px solid black;
+}
+
+.attachment{
+    padding: 4px 7px 4px 16px;
+}
+
+.selectFileInput{
+    padding: 26px 0px 11px 0px;
+}
+
+

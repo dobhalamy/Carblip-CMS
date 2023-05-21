@@ -1,0 +1,37 @@
+.high-text {
+    font-weight: bold;
+}
+
+
+.side-slider {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 999;
+    top: 64px;
+    right: 0;
+    background-color: #ffff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+//   ***
+
+table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: #fff;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+  }
+  

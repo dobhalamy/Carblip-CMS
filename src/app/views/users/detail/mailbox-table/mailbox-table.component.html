@@ -1,0 +1,118 @@
+<mat-card>
+    <mat-card-title class="">
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+            <div fxFlex="50" class="pr-1 text-text">
+                <div class="card-title-text">Emails</div>
+            </div>
+            <div fxFlex="50" class="pr-1 text-right">
+                <button mat-raised-button class="mr-05" color="primary" (click)="refreshMail()">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+                <button mat-raised-button class="mr-05" color="primary" (click)="composeMail()">Compose
+                </button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content class="mt-1">
+
+        <!-- NEW TABLE -->
+
+        <table mat-table [dataSource]="emails" multiTemplateDataRows class="mat-elevation-z8" *ngIf="emails" matSortActive={{sortKey}}
+        matSortDirection={{sortDirection}} matSort (matSortChange)="sortData($event)">
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+            </ng-container>
+            <ng-container matColumnDef="expand">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                <td mat-cell *matCellDef="let element">
+                </td>
+            </ng-container>
+
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <app-mail-thread *ngIf="isOpenDrawer" [userInfo]="userInfo" [mailId]="mailId" [sendTo]="sendTo" (navClose)="closeSider($event)"></app-mail-thread>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element; openSider(element.cid)">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+
+
+
+        <!-- <table class="w-100" [dataSource]="emails" mat-table *ngIf="emails" matSortActive={{sortKey}}
+            matSortDirection={{sortDirection}} matSort (matSortChange)="sortData($event)">
+            <ng-container matColumnDef="srNo" sticky>
+                <mat-header-cell class="cell-srNo" *matHeaderCellDef>Sr #</mat-header-cell>
+                <mat-cell class="cell-srNo" *matCellDef="let item; let i = index;"  >
+                    <a href="javascript:;">
+                        {{ offset + i }}
+                    </a>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="subject">
+                <mat-header-cell class="cell-subject cell-metric" *matHeaderCellDef mat-sort-header>Subject
+                </mat-header-cell>
+                <mat-cell class="cell-subject cell-metric" *matCellDef="let item"  >
+                    <span [ngClass]="item.status == 0 ? 'high-text': ''">{{item?.subject.substring(0,10)}}...</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="message">
+                <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef mat-sort-header>Message
+                </mat-header-cell>
+                <mat-cell class="cell-message cell-metric" *matCellDef="let item"  >
+                    <span [ngClass]="item.status == 0 ? 'high-text': ''">{{formatMessageText(item?.msg)}}...</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+                <mat-header-cell class="cell-type cell-metric" *matHeaderCellDef mat-sort-header>Type
+                </mat-header-cell>
+                <mat-cell class="cell-type cell-metric" *matCellDef="let item"  >
+                    <span [ngClass]="item.status == 0 ? 'high-text': ''">{{item?.type}}</span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="created_at">
+                <mat-header-cell class="cell-created_at cell-metric" *matHeaderCellDef mat-sort-header>Created At
+                </mat-header-cell>
+                <mat-cell class="cell-created_at cell-metric" *matCellDef="let item"  >
+                    {{ item?.created_at | date:'MM-dd-yyy hh:mm a' }}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell class="cell-actions cell-metric" *matHeaderCellDef mat-sort-header>Actions
+                </mat-header-cell>
+                <mat-cell class="cell-actions cell-metric" *matCellDef="let item"  >
+                        <button mat-icon-button (click)="showinboxmsg(item)">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
+                    </mat-cell>
+            </ng-container>
+            
+
+            <mat-header-row *matHeaderRowDef="columnHeaders; sticky: true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnHeaders"></mat-row>
+        </table> -->
+        <div class="text-center margin-333" *ngIf="(didFetch$ | async) && emails.length === 0">No Records Found!</div>
+
+        <mat-paginator [length]="totalRecords" [pageSize]="10" [pageSizeOptions]="[5,10,15,50]" aria-label="Select page"
+            [showFirstLastButtons]="true" (page)="onLogPaginateChange($event)">
+        </mat-paginator>
+
+    </mat-card-content>
+
+</mat-card>

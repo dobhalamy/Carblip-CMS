@@ -1,0 +1,87 @@
+<mat-card>
+  <mat-card-title class="">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+      <div fxFlex="50" class="pr-1 text-text">
+        <div class="card-title-text">Call</div>
+      </div>
+      <div fxFlex="50" class="pr-1 text-right">
+        <button mat-raised-button class="mr-05" color="primary" (click)="call()" [disabled]="SmsData.length == 0">
+          <mat-icon>call</mat-icon>
+        </button>
+        <button mat-raised-button class="mr-05" color="primary" (click)="refresh()">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+
+  <mat-card-content class="mt-1">
+    <mat-table [dataSource]="SmsData">
+
+      <ng-container matColumnDef="direction">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Direction
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <span >{{ item.direction}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Status
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <span >{{ item.status}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="duration">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Duration
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <span >{{ item.duration}} Sec</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="call_record">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Call Record
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <mat-icon (click)="playrecording(item)" *ngIf="playRecording != item">play_circle_outline</mat-icon>
+          <!-- <span> {{recordingUrl}}</span> -->
+          <audio controls autoplay *ngIf="playRecording == item"> <source [src]="recordingUrl" type="audio/mp3"></audio>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="created_at">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Created At
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <span >{{ item?.start_time | date:'MM-dd-yyy hh:mm a' }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-message cell-metric" *matHeaderCellDef>Actions
+        </mat-header-cell>
+        <mat-cell class="cell-message cell-metric" *matCellDef="let item">
+          <button mat-icon-button (click)="smsDetails(item)">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="columnHeaders; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnHeaders"></mat-row>
+    </mat-table>
+
+    <div class="text-center margin-333" *ngIf="(didFetch$ | async) && SmsData.length === 0">No Records Found!</div>
+
+    <mat-paginator [length]="totalRecords" [pageSize]="10" [pageSizeOptions]="[5,10,15,50]" aria-label="Select page"
+      [showFirstLastButtons]="true" (page)="onLogPaginateChange($event)">
+    </mat-paginator>
+
+  </mat-card-content>
+
+</mat-card>

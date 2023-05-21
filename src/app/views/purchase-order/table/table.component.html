@@ -1,0 +1,77 @@
+<table class="w-100" mat-table *ngIf="purchaseOrders" [dataSource]="purchaseOrders" matSortActive={{sortKey}} matSortDirection={{sortDirection}} matSort
+  (matSortChange)="sortData($event)">
+  <ng-container matColumnDef="purchase_order_number">
+    <mat-header-cell class="cell-purchase_order_number cell-metric" *matHeaderCellDef>PO #</mat-header-cell>
+    <mat-cell class="cell-purchase_order_number cell-metric" *matCellDef="let item">
+      {{ item.id}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="stock_no">
+    <mat-header-cell class="cell-stock_no cell-metric" *matHeaderCellDef mat-sort-header>Quote</mat-header-cell>
+    <mat-cell class="cell-stock_no cell-metric" *matCellDef="let item">
+      {{ item.stock_no}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="vendor_name">
+    <mat-header-cell class="cell-vendor_name cell-metric" *matHeaderCellDef mat-sort-header>Vendor</mat-header-cell>
+    <mat-cell class="cell-vendor_name cell-metric" *matCellDef="let item">
+      {{ item.vendor_name}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell class="cell-description cell-metric" *matHeaderCellDef mat-sort-header>Description
+    </mat-header-cell>
+    <mat-cell class="cell-description cell-metric" *matCellDef="let item">
+      {{ item.description}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <mat-header-cell class="cell-amount cell-metric" *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+    <mat-cell class="cell-amount cell-metric" *matCellDef="let item">
+      <span *ngIf="item.amount != undefined">$</span>{{ item.amount | number : '1.2-2'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="request_approval_name">
+    <mat-header-cell class="cell-request_approval_from cell-metric" *matHeaderCellDef mat-sort-header>Request Approval
+    </mat-header-cell>
+    <mat-cell class="cell-request_approval_from cell-metric" *matCellDef="let item">
+      {{ item.request_approval_name}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="payment_date">
+    <mat-header-cell class="cell-payment_date cell-metric" *matHeaderCellDef mat-sort-header>Payment Date
+    </mat-header-cell>
+    <mat-cell class="cell-payment_date cell-metric" *matCellDef="let item">
+      {{ item.payment_date | date:'MM-dd-yyy hh:mm a'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="category">
+    <mat-header-cell class="cell-category cell-metric" *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+    <mat-cell class="cell-category cell-metric" *matCellDef="let item">
+      {{ item.category}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="cell-actions" *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell class="cell-actions" *matCellDef="let item" (click)="$event.stopPropagation();">
+      <button *ngIf="isAllowUpdate" mat-icon-button routerLink="./{{item.id}}/edit">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button *ngIf="isAllowUpdate" mat-icon-button (click)="onDelete(item)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columnHeaders; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columnHeaders" routerLink="./{{row.id}}/edit"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && purchaseOrders.length === 0">No Records Found!</div>

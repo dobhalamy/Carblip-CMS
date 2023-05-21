@@ -1,0 +1,64 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()" autocomplete="new-contactform">
+  <div class="quote-form">
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+      <div fxFlex="50"  class="pr-1">
+        <mat-form-field class="full-width">
+          <input autocomplete="off"
+          matInput
+          autocomplete="new-name"
+          name="new-name"
+          [formControl]="itemForm.controls['name']"
+          placeholder="Name"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1">
+        <mat-form-field class="full-width">
+          <input autocomplete="off"
+          matInput
+          autocomplete="new-email"
+          name="new-email"
+          [formControl]="itemForm.controls['email']"
+          placeholder="Email"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1">
+        <mat-form-field class="full-width">
+          <input autocomplete="off"
+          matInput
+          autocomplete="new-title"
+          name="new-title"
+          [formControl]="itemForm.controls['title']"
+          placeholder="Title"
+          appNoWhitespace>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50"  class="pr-1">
+        <mat-form-field class="full-width phone-input">
+          <input
+          matInput
+          autocomplete="new-phone"
+          name="new-phone"
+          pattern="^\d{3}[- ]?\d{3}[- ]?\d{4}$"
+          [formControl]="itemForm.controls['phone']"
+          placeholder="Phone"
+          appPhoneNumber>
+          <span matPrefix>+1</span>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100" class="mt-1">
+      <app-button-loading loadingText="Processing..." [loading]="saving" [disabled]="itemForm.invalid" color="primary">{{"CREATE" | translate }}</app-button-loading>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

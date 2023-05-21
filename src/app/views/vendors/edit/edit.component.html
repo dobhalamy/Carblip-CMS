@@ -1,0 +1,72 @@
+<h1 matDialogTitle>Title</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()" autocomplete="new-cmsform">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput autocomplete="new-name" name="new-name" [formControl]="itemForm.controls['name']"
+          placeholder="Vendor Name" appNoWhitespace>
+      </mat-form-field>
+    </div>
+   
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width city-input">
+        <input matInput autocomplete="new-city" name="new-city" [formControl]="itemForm.controls['city']"
+          placeholder="City">
+      </mat-form-field>
+    </div>
+
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width street-address-input">
+        <input matInput autocomplete="new-street-address" name="new-street-address"
+          [formControl]="itemForm.controls['street_address']" placeholder="Street Address">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select [formControl]="itemForm.controls['state']" placeholder="State" #singleSelect>
+          <ngx-mat-select-search *ngIf="true" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "
+            [formControl]="stateFilterCtrl" [preventHomeEndKeyPropagation]="true">
+            <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let state of filteredState" [value]="state.value">
+            {{ state?.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width zip-input">
+        <input matInput autocomplete="zip" name="zip" [formControl]="itemForm.controls['zip']" placeholder="Zip">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput type="website" autocomplete="new-website" name="new-website"
+          [formControl]="itemForm.controls['website']" placeholder="Website" appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-1">
+      <mat-form-field class="full-width comapny-phone-input">
+        <input matInput autocomplete="new-comapny-phone" name="new-comapny-phone" pattern="^\d{3}[- ]?\d{3}[- ]?\d{4}$"
+          [formControl]="itemForm.controls['company_phone']" placeholder="Company Phone" appPhoneNumber>
+        <span matPrefix>+1</span>
+      </mat-form-field>
+    </div>
+
+
+    <div fxFlex="50" class="pr-1">
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <app-button-loading loadingText="Processing..." [loading]="saving" [disabled]="itemForm.invalid" color="primary">
+        {{ saveButtonLabel | translate }}</app-button-loading>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

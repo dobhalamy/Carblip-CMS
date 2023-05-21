@@ -1,0 +1,84 @@
+
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" class="mb-1" *ngIf="loadingFilter">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field floatLabel="always" class="full-width">
+        <mat-label>Year</mat-label>
+        <mat-select [formControl]="itemForm.controls['year']" #yearSelect (selectionChange)="onYearFilterChange($event.value)">
+          <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="yearFilterCtrl" [preventHomeEndKeyPropagation]="true">
+            <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let item of filteredYears" [value]="item.id">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field floatLabel="always" class="full-width">
+        <mat-label>Make</mat-label>
+        <mat-select [formControl]="itemForm.controls['make']" #makeSelect (selectionChange)="onMakeFilterChange($event.value)">
+          <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="makeFilterCtrl" [preventHomeEndKeyPropagation]="true">
+            <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let item of filteredMakes" [value]="item.id">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field floatLabel="always" class="full-width">
+        <mat-label>Model</mat-label>
+        <mat-select [formControl]="itemForm.controls['model']" #modelSelect (selectionChange)="onModelFilterChange($event.value)">
+          <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="modelFilterCtrl" [preventHomeEndKeyPropagation]="true">
+            <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let item of filteredModels" [value]="item.id">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field floatLabel="always" class="full-width">
+        <mat-label>Trim</mat-label>
+        <mat-select [formControl]="itemForm.controls['trim']" #trimSelect>
+          <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="trimFilterCtrl" [preventHomeEndKeyPropagation]="true">
+            <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let item of filteredTrims" [value]="item.id">
+            {{item.trim}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field floatLabel="always" class="full-width">
+        <mat-label>DealStage</mat-label>
+        <mat-select [formControl]="itemForm.controls['dealStage']" #dealStageSelect>
+          <ngx-mat-select-search [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'No matches' "  [formControl]="dealStageFilterCtrl" [preventHomeEndKeyPropagation]="true">
+            <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let item of filteredDealStages" [value]="item.stage_id">
+            {{item.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <app-button-loading loadingText="Processing..." [loading]="saving" [disabled]="itemForm.invalid" color="primary">{{"CREATE" | translate }}</app-button-loading>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>

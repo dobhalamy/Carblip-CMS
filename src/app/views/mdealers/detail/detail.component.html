@@ -1,0 +1,117 @@
+<div class="detail-information-wrapper">
+    <mat-card  *ngIf="isReady">
+        <mat-card-title class="">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" class="pb-1">
+                <div fxFlex="50" class="pr-1 text-left">
+                    <div class="card-title-text">Dealer #{{dealer.id}} Detail</div>
+                </div>
+                <div fxFlex="50" class="pr-1 text-right">
+                    <app-back-button color="primary">{{"BACK" | translate }}</app-back-button>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-title>
+        <mat-card-content class="mt-1">
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" >
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Name</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="name"
+                            [value]="dealer?.name"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Phone</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="phone"
+                            [value]="dealer?.phone"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column" >
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Address</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="address"
+                            [value]="dealer?.address"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>City</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="city"
+                            [value]="dealer?.city"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>State</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="state"
+                            [value]="dealer?.state"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Zip</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="zip"
+                            [value]="dealer?.zip"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Created At</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="created_at"
+                            [value]="dealer?.created_at | date:'MM-dd-yyy hh:mm a'"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" class="pr-1">
+                    <mat-form-field class="full-width" floatLabel="always">
+                        <mat-label>Updated At</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            name="updated_at"
+                            [value]="dealer?.updated_at | date:'MM-dd-yyy hh:mm a'"
+                            disabled
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

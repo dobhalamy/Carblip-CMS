@@ -1,0 +1,173 @@
+{
+    "triggers": [
+        {
+            "type": {
+                "id": 1,
+                "value": "Registered Users"
+            },
+            "property": {
+                "id": 2,
+                "value": "Middle Name"
+            },
+            "condition": {
+                "id": 3,
+                "value": "known"
+            },
+            "conditionvalue": "",
+            "multivalue": []
+        }
+    ],
+    "actions": [
+        {
+            "seq_id": 1,
+            "actionName": "delay",
+            "action": {
+                "id": 1,
+                "value": ""
+            },
+            "date": "",
+            "days": "asd",
+            "delay": {
+                "id": 1,
+                "value": "Delay for a set amount of time"
+            },
+            "hours": "asdasda",
+            "minutes": "sdasda",
+            "parentContainer": "",
+            "seconds": "sdasd",
+            "timeofday": ""
+        },
+        {
+            "seq_id": 2,
+            "actionName": "branch",
+            "action": {
+                "id": 1,
+                "value": "Branch"
+            },
+            "type": {
+                "id": "1",
+                "value": "Registered User"
+            },
+            "property": {
+                "id": "1",
+                "value": "Test"
+            },
+            "condition": {
+                "id": "1",
+                "value": "Test Condition"
+            },
+            "conditionvalue": "Test",
+            "ifbranchname": "ghjgh",
+            "ifbranchdata": [
+                {
+                    "seq_id": 3,
+                    "actionName": "delay",
+                    "action": {
+                        "id": 1,
+                        "value": ""
+                    },
+                    "date": "",
+                    "days": "asd",
+                    "delay": {
+                        "id": 1,
+                        "value": "Delay for a set amount of time"
+                    },
+                    "hours": "asdasda",
+                    "minutes": "sdasda",
+                    "parentContainer": "",
+                    "seconds": "sdasd",
+                    "timeofday": ""
+                },
+                {
+                    "seq_id": 4,
+                    "actionName": "branch",
+                    "action": {
+                        "id": 1,
+                        "value": "Branch"
+                    },
+                    "type": {
+                        "id": "1",
+                        "value": "Registered User"
+                    },
+                    "property": {
+                        "id": "1",
+                        "value": "Test"
+                    },
+                    "condition": {
+                        "id": "1",
+                        "value": "Test Condition"
+                    },
+                    "conditionvalue": "Test",
+                    "ifbranchname": "ghjgh",
+                    "ifbranchdata": [
+                        {
+                            "seq_id": 5,
+                            "actionName": "delay",
+                            "action": {
+                                "id": 1,
+                                "value": ""
+                            },
+                            "date": "",
+                            "days": "asd",
+                            "delay": {
+                                "id": 1,
+                                "value": "Delay for a set amount of time"
+                            },
+                            "hours": "asdasda",
+                            "minutes": "sdasda",
+                            "parentContainer": "",
+                            "seconds": "sdasd",
+                            "timeofday": ""
+                        }
+                    ],
+                    "parentContainer": "",
+                    "thenbranchname": "",
+                    "thenbranchdata": [
+                        {
+                            "seq_id": 6,
+                            "actionName": "delay",
+                            "action": {
+                                "id": 1,
+                                "value": ""
+                            },
+                            "date": "",
+                            "days": "asd",
+                            "delay": {
+                                "id": 1,
+                                "value": "Delay for a set amount of time"
+                            },
+                            "hours": "asdasda",
+                            "minutes": "sdasda",
+                            "parentContainer": "",
+                            "seconds": "sdasd",
+                            "timeofday": ""
+                        }
+                    ]
+                }
+            ],
+            "parentContainer": "",
+            "thenbranchname": "",
+            "thenbranchdata": [
+                {
+                    "seq_id": 7,
+                    "actionName": "delay",
+                    "action": {
+                        "id": 1,
+                        "value": ""
+                    },
+                    "date": "",
+                    "days": "asd",
+                    "delay": {
+                        "id": 1,
+                        "value": "Delay for a set amount of time"
+                    },
+                    "hours": "asdasda",
+                    "minutes": "sdasda",
+                    "parentContainer": "",
+                    "seconds": "sdasd",
+                    "timeofday": ""
+                }
+            ]
+        }
+    ]
+}

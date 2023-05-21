@@ -1,0 +1,29 @@
+<div class="automation-container">
+  <mat-card>
+    <form [formGroup]="itemForm">
+      <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="80" class="title">
+          <mat-form-field class="full-width">
+            <input matInput type="text" formControlName="name" placeholder="Workflow Title">
+          </mat-form-field>
+        </div>
+  
+        <div fxFlex="20">
+          <div class="w-button">
+            <mat-icon class="add" *ngIf="triggers.length == '0'" (click)="trigger()" >add_circle_outline</mat-icon>
+            <mat-icon class="add" *ngIf="triggers.length > '0'"  (click)="trigger()">edit</mat-icon>
+            <mat-icon class="save" (click)="workflow()">save</mat-icon>
+            <mat-icon class="close">cancel</mat-icon>
+          </div>
+        </div>
+      </div>
+  
+      <div class="container">
+        <ng-template #container>
+          
+        </ng-template>
+      </div>
+  
+    </form>
+  </mat-card>
+</div>

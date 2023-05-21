@@ -1,0 +1,74 @@
+<table class="w-100" mat-table *ngIf="locations" [dataSource]="locations" matSort (matSortChange)="sortData($event)">
+    <ng-container matColumnDef="srNo" sticky>
+        <mat-header-cell class="cell-srno" *matHeaderCellDef
+            >Sr #</mat-header-cell
+        >
+        <mat-cell class="cell-srno" *matCellDef="let item; let i = index;">
+            <a href="javascript:;">
+                {{ offset + i }}
+            </a>
+        </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="name">
+        <mat-header-cell class="cell-name cell-metric" *matHeaderCellDef mat-sort-header
+            >Name</mat-header-cell
+        >
+        <mat-cell class="cell-name cell-metric" *matCellDef="let item">
+            {{ item.name}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="street_address">
+        <mat-header-cell class="cell-street_address cell-metric" *matHeaderCellDef mat-sort-header
+            >Street Address</mat-header-cell
+        >
+        <mat-cell class="cell-street_address cell-metric" *matCellDef="let item">
+            {{ item.street_address}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+        <mat-header-cell class="cell-city cell-metric" *matHeaderCellDef mat-sort-header
+            >City</mat-header-cell
+        >
+        <mat-cell class="cell-city cell-metric" *matCellDef="let item">
+            {{ item.city}}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell class="cell-state cell-metric" *matHeaderCellDef mat-sort-header
+            >State</mat-header-cell
+        >
+        <mat-cell class="cell-state cell-metric" *matCellDef="let item">
+            {{ item.state }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="zip_code">
+        <mat-header-cell class="cell-zip_code cell-metric" *matHeaderCellDef mat-sort-header
+            >ZipCode</mat-header-cell
+        >
+        <mat-cell class="cell-zip_code cell-metric" *matCellDef="let item">
+            {{ item.zip_code }}
+        </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+        <mat-header-cell class="cell-actions" *matHeaderCellDef
+            >Actions</mat-header-cell
+        >
+        <mat-cell class="cell-actions" *matCellDef="let item" (click)="$event.stopPropagation();">
+            <button mat-icon-button *ngIf="showEditButton(item)" (click)="onEdit(item)"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button *ngIf="showDeleteButton(item)" (click)="onDelete(item)"><mat-icon>delete</mat-icon></button>
+        </mat-cell>
+    </ng-container>
+  
+    <mat-header-row
+        *matHeaderRowDef="columnHeaders; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders"></mat-row>
+</table>
+<div class="text-center margin-333" *ngIf="(didFetch$ | async) && locations.length === 0">No Records Found!</div>
+  

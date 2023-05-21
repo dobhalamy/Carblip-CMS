@@ -1,0 +1,20 @@
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-md="300px" fxFlex.gt-sm="50" *ngIf="(didFetch$ | async )">
+        <mat-card class="profile-sidebar mb-1">
+            <div class="propic text-center">
+                <img src="assets/images/face-7.jpg" alt="">
+            </div>
+            <div class="profile-title text-center mb-1">
+                <div class="main-title">{{userProfile?.first_name}} {{userProfile?.last_name}}</div>
+                <div class="subtitle mb-05"></div>
+                <div class="text-muted"></div>
+            </div>
+            <div class="profile-actions mb-1" fxLayoutAlign="center center">
+                <button mat-raised-button color="primary" disabled>Upload</button>
+            </div>
+        </mat-card>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="calc(100% - 300px)" *ngIf="(didFetch$ | async )">
+        <router-outlet></router-outlet>
+    </div>
+</div>

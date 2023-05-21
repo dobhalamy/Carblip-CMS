@@ -1,0 +1,165 @@
+<mat-card>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between flex-start" class="margin-333 pb-1">
+        <div fxFlex="70" class="filter-div">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header class="mat-bg-primary">
+                    <mat-panel-title>
+                        Filter
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <form [formGroup]="filterForm" (ngSubmit)="filterSubmit()">
+                    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                        <div fxFlex="50" class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Year</mat-label>
+                                <mat-select [formControl]="filterForm.controls['year']" #yearSelect
+                                    (selectionChange)="selectedYear($event)">
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'"
+                                        [noEntriesFoundLabel]="'No matches' " [formControl]="yearFilterCtrl"
+                                        [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option>All</mat-option>
+                                    <mat-option *ngFor="let item of filteredYears" [value]="item">
+                                        {{item}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Make</mat-label>
+                                <mat-select [formControl]="filterForm.controls['make']" #makeSelect
+                                    (selectionChange)="selectedMake($event)">
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'"
+                                        [noEntriesFoundLabel]="'No matches' " [formControl]="makeFilterCtrl"
+                                        [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option>All</mat-option>
+                                    <mat-option *ngFor="let item of filteredMakes" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Model</mat-label>
+                                <mat-select [formControl]="filterForm.controls['model']" #modelSelect>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'"
+                                        [noEntriesFoundLabel]="'No matches' " [formControl]="modelFilterCtrl"
+                                        [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option>All</mat-option>
+                                    <mat-option *ngFor="let item of filteredModels" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Contact Owner</mat-label>
+                                <mat-select [formControl]="filterForm.controls['contact_owner']" #cmsUsersSelect
+                                    multiple>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'"
+                                        [noEntriesFoundLabel]="'No matches' " [formControl]="cmsUserFilterCtrl"
+                                        [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option (click)="checkAllContactOwner()" value="0">All</mat-option>
+                                    <mat-option [disabled]="disableAllOptionInContactOwner" *ngFor="let item of filteredCmsUsers" [value]="item.id">
+                                        {{item.full_name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" class="pr-1">
+                            <mat-form-field floatLabel="always" class="full-width">
+                                <mat-label>Source</mat-label>
+                                <mat-select [formControl]="filterForm.controls['source']" #sourceSelect multiple>
+                                    <ngx-mat-select-search [placeholderLabel]="'Search...'"
+                                        [noEntriesFoundLabel]="'No matches' " [formControl]="sourceFilterCtrl"
+                                        [preventHomeEndKeyPropagation]="true">
+                                        <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                                    </ngx-mat-select-search>
+                                    <mat-option (click)="checkAllSource()" value="10">All</mat-option>
+                                    <mat-option [disabled]="disableAllOptionInSource" *ngFor="let item of filteredSourcess" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="50" class="pr-1 d-grid pt-20">
+                            <mat-checkbox [aria-label]="isSubscribedToEmailsMessage" [checked]="filterForm.controls['referrals'].value == 'WithRef'" (change)="setRefCheckBox($event.checked)" #referralSelect>
+                                Only show requests with Referral codes
+                            </mat-checkbox>
+                        </div>
+                        <div fxFlex="50" class="pr-1">
+                            <app-carblip-calendar [dateRange]="daterrange" (onChange)="onCalendarChange($event)">
+                            </app-carblip-calendar>
+                        </div>
+                        <div fxFlex="50"  class="pr-1 d-grid pt-20">
+                            <mat-checkbox [aria-label]="isSubscribedToEmailsMessage" [checked]="filterForm.controls['closedwon'].value == 'closedWon'" (change)="setClosedWonCheckBox($event.checked)" #closedWonSelect>
+                                Only show requests that are Closed Won
+                            </mat-checkbox>
+                        </div>
+
+                        <div fxFlex="100" fxLayoutAlign="space-between center" class="pr-1">
+                            <button mat-raised-button color="primary">Run <mat-icon>directions_run</mat-icon></button>
+                        </div>
+                    </div>
+                </form>
+            </mat-expansion-panel>
+        </div>
+        <div fxFlex="30" class="text-right">
+            <div>
+                <mat-form-field>
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input matInput type="text" name="searchSource" placeholder="Search here" [(ngModel)]="search"
+                        #searchInput />
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" (click)="onExport()">Export <mat-icon>import_export</mat-icon>
+                    </button>
+            </div>
+        </div>
+    </div>
+    <mat-progress-bar *ngIf="(fetching$ | async)" mode="indeterminate"></mat-progress-bar>
+    <app-requests-table class="display-block w-100 list-table"></app-requests-table>
+    <mat-paginator #paginator [length]="tablePagination.length" [pageSize]="tablePagination.pageSize"
+        [pageIndex]="tablePagination.pageIndex" [pageSizeOptions]="[20, 50, 100]" [showFirstLastButtons]="true"
+        (page)="onPaginateChange($event)">
+    </mat-paginator>
+</mat-card>
+
+<mat-card>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between flex-start" class="margin-333">
+        <div fxFlex="70" class="filter-div">
+            <h2>Delete History</h2>
+        </div>
+        <div fxFlex="30" class="text-right">
+            <mat-form-field>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput type="text" name="searchLogSource" placeholder="Search here" [(ngModel)]="logSearch"
+                    #searchLogInput />
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="margin-333">
+        <mat-progress-bar *ngIf="(logFetching$ | async)" mode="indeterminate"></mat-progress-bar>
+        <ul class="log-ul">
+            <li *ngFor="let log of logs">
+                <span [innerHTML]="log.content"></span>
+                {{ log.created_at | date:'MM-dd-yyy hh:mm a'}}
+            </li>
+        </ul>
+    </div>
+    <mat-paginator #paginator [length]="logPagination.length" [pageSize]="logPagination.pageSize"
+        [pageIndex]="logPagination.pageIndex" [pageSizeOptions]="[20, 50, 100]" [showFirstLastButtons]="true"
+        (page)="onLogPaginateChange($event)">
+    </mat-paginator>
+</mat-card>

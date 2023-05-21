@@ -1,0 +1,66 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="location_name"
+        [formControl]="itemForm.controls['name']"
+        placeholder="Name"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="location_street_address"
+        [formControl]="itemForm.controls['street_address']"
+        placeholder="Street Address"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="location_city"
+        [formControl]="itemForm.controls['city']"
+        placeholder="City"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="location_state"
+        [formControl]="itemForm.controls['state']"
+        placeholder="State"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="location_zip_code"
+        [formControl]="itemForm.controls['zip_code']"
+        placeholder="ZipCode"
+        appNoWhitespace>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <app-button-loading loadingText="Processing..." [loading]="saving" [disabled]="itemForm.invalid" color="primary">{{ saveButtonLabel | translate }}</app-button-loading>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>
